@@ -1,0 +1,20 @@
+/**Nav.php*/
+body{background:#1E3E57;}
+dd{padding-bottom:30px;}
+.mynav{
+	background:#1E3E57;
+	//padding-left: 10px;
+}
+.panel-heading{
+	cursor:pointer;
+}
+.panel-legend{
+	display:block;
+	border-top: 1px solid #ddd;
+}
+.main{
+	background:#fff;
+	border-radius: 5px;
+	box-shadow: 2px 3px 9px 1px black;
+	min-height: 500px;
+}
