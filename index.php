@@ -8,10 +8,10 @@
 		unset($_SESSION['userid']);
 		unset($_SESSION['role']);
 		session_destroy();
-		redirect('login.php');
+		header("Location:login.php");
 	}
 	if(!isset($_SESSION['userid'])){
-		redirect('login.php');
+		header("Location:login.php");
 	}
 	/*Main Pages*/
 	include "inc/header.php";

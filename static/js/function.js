@@ -1,3 +1,4 @@
+/*function of check passord*/
 	function seepwd(i){
 		pwd = document.getElementsByName(i)[0];
 		pwd.type='text';
