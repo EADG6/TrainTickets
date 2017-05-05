@@ -1,9 +1,10 @@
 /**Nav.php*/
-body{background:#1E3E57;}
-dd{padding-bottom:30px;}
+body{
+	background:#1E3E57;
+	padding-top:20px;
+}
 .mynav{
 	background:#1E3E57;
-	//padding-left: 10px;
 }
 .panel-heading{
 	cursor:pointer;
@@ -12,9 +13,35 @@ dd{padding-bottom:30px;}
 	display:block;
 	border-top: 1px solid #ddd;
 }
+#leftArrow{
+	cursor:pointer;
+}
+#rightArrow{
+	cursor:pointer;
+	position: fixed;
+    z-index: 1;
+    top: 500px;
+	left:0;
+}
+#leftMenu{
+	-webkit-animation: move-in-right cubic-bezier(.22,.58,.12,.98) .4s;
+    animation: move-in-right cubic-bezier(.22,.58,.12,.98) .4s;
+}
 .main{
 	background:#fff;
 	border-radius: 5px;
 	box-shadow: 2px 3px 9px 1px black;
 	min-height: 500px;
+}
+@keyframes move-in-right{
+	0% {
+		opacity: 0;
+		-webkit-transform: translate(5em,0);
+		transform: translate(5em,0);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: translate(0,0);
+		transform: translate(0,0);
+	}
 }

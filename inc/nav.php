@@ -1,7 +1,7 @@
 ﻿<!-- Show all the admin menu from databse -->
-<dl class="mynav">
+<dl class="col-md-2" style="margin-bottom:0;padding-right:0;" id='leftMenu'>
 	<dd class="clearfix">
-		<div class="col-md-2" style="padding-right:0;">
+		<div class="mynav">
 			<div class="panel-group" id="panel-1">
 			  <div class="panel" style="background:#DB4C4C;color:#fff"><div class="panel-heading"><h4><img src=''> Train Ticket System</h4></div>
 			  </div>
@@ -68,9 +68,25 @@
 					</div>
 				</div>
 			</div>
-		</div>	
-		<div class="main col-md-9" style="width:80%">
-			<span>
+			<i class="fa fa-3x fa-arrow-circle-left pull-right" id='leftArrow' onclick="hideLeft()"></i>
+		</div>
+	</dd>
+</dl>
+<i class="fa fa-3x fa-arrow-circle-right pull-right" id='rightArrow' onclick="showLeft()" style="display:none"></i>
+<script>
+	function hideLeft(){
+		$('#leftMenu').hide()
+		$('#rightArrow').show()
+		$('#rightMain').attr('class','col-md-10 col-md-offset-1')
+	}
+	function showLeft(){
+		$('#leftMenu').show()
+		$('#rightArrow').hide()
+		$('#rightMain').attr('class','col-md-10')
+	}
+</script>
+<div class="col-md-10" id='rightMain'>
+	<div class="main">
 <?php 
 /**Show current path*/	
 	/* if(isset($_GET['page']))echo '<i class="fa fa-home"></i>&nbsp;>&nbsp;'.ucwords(inputCheck($_GET['page'])).'&nbsp;>&nbsp;'; 
@@ -79,5 +95,5 @@
 	$curentMenuId = $mysql->oneQuery($sql_currentMenu);
 	echo "<script>if($('#panele$curentMenuId')[0])$('#panele$curentMenuId')[0].click()</script>";	 */
 ?>
-			</span>
-		</div>
+	</div>
+</div>
