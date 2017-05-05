@@ -53,3 +53,20 @@ body{
 		transform: translate(0,0);
 	}
 }
+/**Login Page*/
+.loginTit{
+	color:#fff;
+	margin-top: 0;
+}
+.seepwd{
+	position:absolute;
+	margin-top: -27px;
+	margin-left: 90%;
+	cursor:pointer;
+}
+.logmain{
+	background:#fff;
+	border-radius: 5px;
+	box-shadow: 2px 3px 9px 1px black;
+	min-height: 3%00px;
+}
