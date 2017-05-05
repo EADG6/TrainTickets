@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-04-18 16:53:51
+-- Generation Time: 2017-05-05 19:07:46
 -- 服务器版本： 5.6.24
 -- PHP Version: 5.6.8
 
@@ -19,6 +19,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `train`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `access`
+--
+
+CREATE TABLE IF NOT EXISTS `access` (
+  `id` int(11) NOT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `access` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -57,6 +69,28 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `birthdate` date DEFAULT NULL,
   `tel` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `role`
+--
+
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 转存表中的数据 `role`
+--
+
+INSERT INTO `role` (`id`, `name`, `pid`) VALUES
+(1, 'Super Administrator', 0),
+(2, 'Manager', 1),
+(3, 'Worker', 2),
+(4, 'Unvalidated', 4);
 
 -- --------------------------------------------------------
 
@@ -114,9 +148,45 @@ CREATE TABLE IF NOT EXISTS `train_type` (
   `type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user`
+--
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `pwd` varchar(50) DEFAULT NULL,
+  `salt` varchar(50) NOT NULL,
+  `fname` varchar(20) DEFAULT NULL,
+  `lname` varchar(20) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `tel` varchar(30) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `lastloginip` varchar(30) DEFAULT NULL,
+  `lastlogindate` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 转存表中的数据 `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `pwd`, `salt`, `fname`, `lname`, `role_id`, `tel`, `email`, `lastloginip`, `lastlogindate`) VALUES
+(1, 'admin', 'bda1630a9b49f083d784709dad92ec60', 'oKm0lY2R', 'Marshall', 'Liu', 1, '12300444569', 'mars@gmail.com', '127.0.0.1', '2017-05-05 01:04:29'),
+(2, 'manager1', '978f145e82fee41e2bae6de5e97538f1', 'bxlP7a+C', 'Kev', 'He', 2, '12345', '12344@gmail.com', '::1', '2017-03-14 16:06:34'),
+(3, 'worker1', '50903350968fbfccb51515c226cf9e5c', '6KlBSuTL', 'Tob', 'Mao', 3, '123455', '1324@gmail.com', '::1', '2017-03-16 23:49:00'),
+(4, 'worker2', '019fd8e9f59638d77f78776c8f6d968d', '07tupg33', 'Tomas', 'Li', 3, '1', '1@e.com', '', '0000-00-00 00:00:00');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `access`
+--
+ALTER TABLE `access`
+  ADD PRIMARY KEY (`id`), ADD KEY `role_id` (`role_id`);
 
 --
 -- Indexes for table `cariage`
@@ -134,6 +204,12 @@ ALTER TABLE `city`
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `role`
+--
+ALTER TABLE `role`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -161,9 +237,20 @@ ALTER TABLE `train_type`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`), ADD KEY `role_id` (`role_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `access`
+--
+ALTER TABLE `access`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `cariage`
 --
@@ -204,6 +291,12 @@ ALTER TABLE `train_type`
 --
 
 --
+-- 限制表 `access`
+--
+ALTER TABLE `access`
+ADD CONSTRAINT `access_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+
+--
 -- 限制表 `cariage`
 --
 ALTER TABLE `cariage`
@@ -231,6 +324,12 @@ ALTER TABLE `train`
 ADD CONSTRAINT `train_ibfk_1` FOREIGN KEY (`start_city_id`) REFERENCES `city` (`id`),
 ADD CONSTRAINT `train_ibfk_2` FOREIGN KEY (`end_city_id`) REFERENCES `city` (`id`),
 ADD CONSTRAINT `train_ibfk_3` FOREIGN KEY (`train_type_id`) REFERENCES `train_type` (`id`);
+
+--
+-- 限制表 `user`
+--
+ALTER TABLE `user`
+ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

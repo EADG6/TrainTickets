@@ -1,12 +1,21 @@
 <?php
-	//Start the session
 	session_start();
 	date_default_timezone_set('PRC');
-	//include files
 	require "inc/db.php";
+	/*Log out*/
+	if(isset($_GET['logout'])){
+		unset($_SESSION['user']);
+		unset($_SESSION['userid']);
+		unset($_SESSION['role']);
+		session_destroy();
+		redirect('login.php');
+	}
+	if(!isset($_SESSION['userid'])){
+		redirect('login.php');
+	}
+	/*Main Pages*/
 	include "inc/header.php";
 	include "inc/nav.php";
-	//Main Pages
 	$page = isset($_GET['page']) ? $_GET['page']:'ticket';
 	$action = isset($_GET['action']) ? $_GET['action']:'all';
 	if($page=='ticket'){
