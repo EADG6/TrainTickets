@@ -1,17 +1,17 @@
-﻿<!-- Show all the admin menu from databse -->
+﻿<!-- Navigation bar -->
 <dl class="col-md-2" style="margin-bottom:0;padding-right:0;" id='leftMenu'>
 	<dd class="clearfix">
 		<div class="mynav">
-			<div class="panel-group" id="panel-1">
+			<div class="panel-group" id="panel-leftmenu">
 			  <div class="panel" style="background:#DB4C4C;color:#fff" onclick='location.href="index.php"'><div class="panel-heading icona"><h4><img src=''> Train Ticket System</h4></div>
 			  </div>
 				<div class="panel panel-default" style='margin-top:0px;'>
 					<div class="panel-heading" onclick="$('#ticket')[0].click()">
-						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="ticket" href="#panel-element-1">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="ticket" href="#panel-element-ticket">
 							Ticket
 						</a><span class="caret"></span>
 					</div>
-					<div id="panel-element-1" class="panel-collapse collapse">
+					<div id="panel-element-ticket" class="panel-collapse collapse">
 						<a href="index.php?page=ticket&action=new" class="panel-legend icona">
 							<div class="panel-body">New Ticket</div>
 						</a>
@@ -20,11 +20,11 @@
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#train')[0].click()">
-						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="train" href="#panel-element-2">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="train" href="#panel-element-train">
 							Train
 						</a><span class="caret"></span>
 					</div>
-					<div id="panel-element-2" class="panel-collapse collapse">
+					<div id="panel-element-train" class="panel-collapse collapse">
 						<a href="index.php?page=train&action=new" class="panel-legend icona">
 							<div class="panel-body">New Train</div>
 						</a>
@@ -33,11 +33,11 @@
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#customer')[0].click()">
-						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="customer" href="#panel-element-3">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="customer" href="#panel-element-customer">
 							Customer
 						</a><span class="caret"></span>
 					</div>
-					<div id="panel-element-3" class="panel-collapse collapse">
+					<div id="panel-element-customer" class="panel-collapse collapse">
 						<a href="index.php?page=customer&action=new" class="panel-legend icona">
 							<div class="panel-body">New Customer</div>
 						</a>
@@ -46,11 +46,11 @@
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#staff')[0].click()">
-						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="staff" href="#panel-element-4">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="staff" href="#panel-element-staff">
 							Staff
 						</a><span class="caret"></span>
 					</div>
-					<div id="panel-element-4" class="panel-collapse collapse">
+					<div id="panel-element-staff" class="panel-collapse collapse">
 						<a href="index.php?page=staff&action=new" class="panel-legend icona">
 							<div class="panel-body">New Staff</div>
 						</a>
@@ -92,3 +92,14 @@
 	}
 </script>
 <div class="col-md-10 main" id='rightMain'>
+	<div class='form-group'>
+<?php
+	if(isset($_GET['page'])){
+		echo "<script>$('#".$_GET['page']."')[0].click()</script>";
+		echo '<i class="fa fa-home"></i>&nbsp;>&nbsp;'.ucwords(inputCheck($_GET['page'])).'&nbsp;>&nbsp;';
+	}		
+	if(isset($_GET['action'])){
+		echo ucwords(inputCheck($_GET['action'])).'&nbsp;>';
+	}
+?>
+	</div>

@@ -3,11 +3,11 @@ body{
 	background:#1E3E57;
 	padding-top:20px;
 }
-.topblank{
-	padding-top: 20px;
-}
 .mynav{
 	background:#1E3E57;
+}
+.topblank{
+	padding-top:20px;
 }
 .panel-legend{
 	display:block;
@@ -45,8 +45,9 @@ body{
 .main{
 	background:#fff;
 	border-radius: 5px;
-	box-shadow: 2px 3px 9px 1px black;
+	box-shadow: 2px 3px 20px 1px black;
 	min-height: 600px;
+	padding-top:20px;
 }
 @keyframes move-in-right{
 	0% {
@@ -84,7 +85,7 @@ body{
     position: absolute;
     height: 50px;
     right: 10px;
-    top: 30px;
+    top: 5px;
     padding: 10px;
     line-height: 26px;
     background: #f9f9f9;
