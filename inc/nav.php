@@ -3,7 +3,7 @@
 	<dd class="clearfix">
 		<div class="mynav">
 			<div class="panel-group" id="panel-1">
-			  <div class="panel" style="background:#DB4C4C;color:#fff"><div class="panel-heading"><h4><img src=''> Train Ticket System</h4></div>
+			  <div class="panel" style="background:#DB4C4C;color:#fff" onclick='location.href="index.php"'><div class="panel-heading icona"><h4><img src=''> Train Ticket System</h4></div>
 			  </div>
 				<div class="panel panel-default" style='margin-top:0px;'>
 					<div class="panel-heading" onclick="$('#ticket')[0].click()">
@@ -68,32 +68,22 @@
 					</div>
 				</div>
 			</div>
-			<i class="fa fa-3x fa-arrow-circle-left pull-right" id='leftArrow' onclick="hideLeft()"></i>
+			<i class="fa fa-3x fa-arrow-circle-right icona" onmouseover='this.style.color="#333"' onmouseout='this.style.color="rgba(51, 51, 51, 0.4)"' id='leftArrow' onclick="hideLeft()"></i>
 		</div>
 	</dd>
 </dl>
-<i class="fa fa-3x fa-arrow-circle-right pull-right" id='rightArrow' onclick="showLeft()" style="display:none"></i>
+<i class="fa fa-3x fa-arrow-circle-left icona" id='rightArrow' onmouseover='this.style.color="#333"' onmouseout='this.style.color="rgba(51, 51, 51, 0.4)"' onclick="showLeft()" style="display:none"></i>
+<a href='#leftMenu'><i class="fa fa-3x fa-arrow-circle-o-up" id='topArrow' onmouseover='this.style.color="#333"' onmouseout='this.style.color="rgba(1, 1, 1, 0.1)"'></i></a>
 <script>
 	function hideLeft(){
 		$('#leftMenu').hide()
 		$('#rightArrow').show()
-		$('#rightMain').attr('class','col-md-10 col-md-offset-1')
+		$('#rightMain').attr('class','col-md-10 col-md-offset-1 main')
 	}
 	function showLeft(){
 		$('#leftMenu').show()
 		$('#rightArrow').hide()
-		$('#rightMain').attr('class','col-md-10')
+		$('#rightMain').attr('class','col-md-10 main')
 	}
 </script>
-<div class="col-md-10" id='rightMain'>
-	<div class="main">
-<?php 
-/**Show current path*/	
-	/* if(isset($_GET['page']))echo '<i class="fa fa-home"></i>&nbsp;>&nbsp;'.ucwords(inputCheck($_GET['page'])).'&nbsp;>&nbsp;'; 
-	if(isset($_GET['action'])){echo ucwords(inputCheck($_GET['action'])).'&nbsp;>';}
-	$sql_currentMenu = "SELECT pid FROM admin_menu WHERE url = '$url'";
-	$curentMenuId = $mysql->oneQuery($sql_currentMenu);
-	echo "<script>if($('#panele$curentMenuId')[0])$('#panele$curentMenuId')[0].click()</script>";	 */
-?>
-	</div>
-</div>
+<div class="col-md-10 main" id='rightMain'>

@@ -6,22 +6,30 @@ body{
 .mynav{
 	background:#1E3E57;
 }
-.panel-heading{
-	cursor:pointer;
-}
 .panel-legend{
 	display:block;
 	border-top: 1px solid #ddd;
 }
-#leftArrow{
+.icona{
 	cursor:pointer;
 }
+#leftArrow{
+	left:2%;
+	color:rgba(51, 51, 51, 0.4);
+}
 #rightArrow{
-	cursor:pointer;
 	position: fixed;
     z-index: 1;
-    top: 500px;
-	left:0;
+    top: 50%;
+	left:4%;
+	color:rgba(51, 51, 51, 0.4);
+}
+#topArrow{
+	position: fixed;
+    z-index: 1;
+    top: 70%;
+	right:3%;
+	color:rgba(1, 1, 1, 0.1);
 }
 #leftMenu{
 	-webkit-animation: move-in-right cubic-bezier(.22,.58,.12,.98) .4s;
@@ -31,7 +39,7 @@ body{
 	background:#fff;
 	border-radius: 5px;
 	box-shadow: 2px 3px 9px 1px black;
-	min-height: 500px;
+	min-height: 600px;
 }
 @keyframes move-in-right{
 	0% {
