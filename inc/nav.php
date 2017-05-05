@@ -7,63 +7,68 @@
 			  </div>
 				<div class="panel panel-default" style='margin-top:0px;'>
 					<div class="panel-heading" onclick="$('#ticket')[0].click()">
-						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" id="ticket" href="#panel-element-1" style="text-decoration:none;">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="ticket" href="#panel-element-1">
 							Ticket
 						</a><span class="caret"></span>
 					</div>
 					<div id="panel-element-1" class="panel-collapse collapse">
-						<a href="index.php?page=ticket&action=new" class="panel-legend">
+						<a href="index.php?page=ticket&action=new" class="panel-legend icona">
 							<div class="panel-body">New Ticket</div>
 						</a>
-						<a href="index.php?page=ticket&action=all" class="panel-legend">
+						<a href="index.php?page=ticket&action=all" class="panel-legend icona">
 							<div class="panel-body">Edit Ticket</div>
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#train')[0].click()">
-						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" id="train" href="#panel-element-2" style="text-decoration:none;">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="train" href="#panel-element-2">
 							Train
 						</a><span class="caret"></span>
 					</div>
 					<div id="panel-element-2" class="panel-collapse collapse">
-						<a href="index.php?page=ticket&action=new" class="panel-legend">
+						<a href="index.php?page=train&action=new" class="panel-legend icona">
 							<div class="panel-body">New Train</div>
 						</a>
-						<a href="index.php?page=ticket&action=all" class="panel-legend">
+						<a href="index.php?page=train&action=all" class="panel-legend icona">
 							<div class="panel-body">Edit Train</div>
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#customer')[0].click()">
-						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" id="customer" href="#panel-element-3" style="text-decoration:none;">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="customer" href="#panel-element-3">
 							Customer
 						</a><span class="caret"></span>
 					</div>
 					<div id="panel-element-3" class="panel-collapse collapse">
-						<a href="index.php?page=ticket&action=new" class="panel-legend">
+						<a href="index.php?page=customer&action=new" class="panel-legend icona">
 							<div class="panel-body">New Customer</div>
 						</a>
-						<a href="index.php?page=ticket&action=all" class="panel-legend">
+						<a href="index.php?page=customer&action=all" class="panel-legend icona">
 							<div class="panel-body">Edit Customer</div>
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#staff')[0].click()">
-						<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" id="staff" href="#panel-element-4" style="text-decoration:none;">
+						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-1" id="staff" href="#panel-element-4">
 							Staff
 						</a><span class="caret"></span>
 					</div>
 					<div id="panel-element-4" class="panel-collapse collapse">
-						<a href="index.php?page=ticket&action=new" class="panel-legend">
+						<a href="index.php?page=staff&action=new" class="panel-legend icona">
 							<div class="panel-body">New Staff</div>
 						</a>
-						<a href="index.php?page=ticket&action=all" class="panel-legend">
+						<a href="index.php?page=staff&action=all" class="panel-legend icona">
 							<div class="panel-body">Edit Staff</div>
 						</a>
-						<a href="index.php?page=ticket&action=all" class="panel-legend">
+						<a href="index.php?page=staff&action=role" class="panel-legend icona">
 							<div class="panel-body">Role Management</div>
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#profile')[0].click()">
-						<a class="panel-title collapsed" id="profile" href="123.php" style="text-decoration:none;">
+						<a class="panel-title collapsed icona" id="profile" href="index.php?page=profile">
 							My Profile
+						</a>
+					</div>
+					<div class="panel-heading" onclick="$('#logout')[0].click()">
+						<a class="panel-title collapsed icona" id="logout" href="index.php?logout">
+							Log Out
 						</a>
 					</div>
 				</div>

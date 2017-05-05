@@ -3,6 +3,9 @@ body{
 	background:#1E3E57;
 	padding-top:20px;
 }
+.topblank{
+	padding-top: 20px;
+}
 .mynav{
 	background:#1E3E57;
 }
@@ -12,6 +15,10 @@ body{
 }
 .icona{
 	cursor:pointer;
+}
+.icona:focus,
+.icona:hover{
+	text-decoration:none;
 }
 #leftArrow{
 	left:2%;
@@ -53,6 +60,7 @@ body{
 		transform: translate(0,0);
 	}
 }
+
 /**Login Page*/
 .loginTit{
 	color:#fff;
@@ -68,5 +76,33 @@ body{
 	background:#fff;
 	border-radius: 5px;
 	box-shadow: 2px 3px 9px 1px black;
-	min-height: 3%00px;
+	min-height: 300px;
+}
+
+/**Customer page*/
+.helptip{
+    position: absolute;
+    height: 50px;
+    right: 10px;
+    top: 30px;
+    padding: 10px;
+    line-height: 26px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    z-index: 3;
+    -webkit-animation: move-in-left cubic-bezier(.22,.58,.12,.98) .4s;
+    animation: move-in-left cubic-bezier(.22,.58,.12,.98) .4s;
+    box-shadow: 2px 2px 11px 0px rgba(0, 0, 0, 0.55);
+}
+@keyframes move-in-left{
+	0% {
+		opacity: 0;
+		-webkit-transform: translate(-5em,0);
+		transform: translate(-5em,0);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: translate(0,0);
+		transform: translate(0,0);
+	}
 }
