@@ -27,6 +27,7 @@
 		</div>
         <div class="form-group">
 			<label>Seat Level: <span id='trainSelected'></span></label>
+			<input type="hidden" id='tid' name='tid'>
 			<select class="form-control" name="level" onchange='countPrice()' required >
 				<option value=''>Select a Level...</option>
 				<?php
@@ -71,11 +72,12 @@
 		</div>
 		<div class="form-group">
 			<label>Seat Ramain:</label>
-			<input type="text" class="form-control" disabled>
+			<input type="text" class="form-control" id='remain' disabled>
+			<input type="hidden" name='remain'>
 		</div>
 		<div class="form-group">
 			<label>Customer Name:</label>
-			<input type="text" class="form-control" id="cusname" disabled>
+			<input type="text" class="form-control" id='cusname' disabled>
 		</div>
 		<div class="form-group">
 			<label>Price (Level * Time):</label>
@@ -94,15 +96,41 @@
 		$('[name="'+elename+'"] [value="'+ele.value+'"]').attr('disabled',true)
 		if($('[name="'+elename+'"]').val()==ele.value)$('[name="'+elename+'"]').val('')
 		trainTime()
+		countSeat()
 	}
 /* Count ticket price */
 	function countPrice(){
-		ele = $('[name="level"]').val();
+		var ele = $('[name="level"]').val();
 		if(ele!=null){
 			$("#price").val(parseInt(ele.split(",")[1])*$("#hours").val()+'RMB')
+			countSeat()
 		}
 	}
-/* use ajax to check train time */
+/* Count remain seats*/
+	function countSeat(){
+		var godate = $('[name="date"]').val();
+		var train_id = $('#tid').val();
+		if(($('[name="level"]').val()+godate+train_id)!='undefined'){
+			var seat_type_id = $('[name="level"]').val().split(",")[0];
+			var cariage_cap = $('[name="level"]').val().split(",")[2];
+			$.ajax({
+				url:'ajax.php',
+				data:{"stype":seat_type_id,"godate":godate,"tid":train_id},
+				type:'POST',
+				dataType:'json',
+				success:function(data){
+					total = parseInt(data.carnum)*cariage_cap;
+					remain = total - data.seatnum;
+					$('#remain').val(remain+' / '+total+' ('+cariage_cap+' Seat * '+data.carnum+' Cariage)')
+					$('[name="remain"]').val(remain+','+cariage_cap)
+					if(remain==0){
+						$('[name="level"]').val('')
+					}
+				}
+			})
+		}
+	}
+/* Check train time */
 	function trainTime(){
 		scityid = $('[name="scity"]').val();
 		ecityid = $('[name="ecity"]').val();
@@ -118,6 +146,7 @@
 					$('#stime').val('No train between these two cities')
 					$('#etime').val('No train between these two cities')
 					$('#trainSelected').html('')
+					$('#tid').val('')
 					$("#price").val(0)
 				}else{
 					var standid = data.type==1? 1:3;
@@ -131,6 +160,7 @@
 					$('#etime').val(data.end+' /'+data.hours+' Hours')
 					$("#hours").val(data.hours)
 					$('#trainSelected').html('('+data.train.tname+')')
+					$('#tid').val(data.train.tid)
 					countPrice()
 				}
 			},
@@ -149,16 +179,41 @@
 			$('#subbtn').attr('disabled',true)
 		}else{
 			$('#subbtn').attr('disabled',false)
+			countSeat()
 		}
 	}
 </script>
 <?php
-	if(isset($_POST['scity'])){
-		$scity = $_POST['scity'];
-		$ecity = $_POST['ecity'];
-		$seat_level = explode(',',$_POST['level'])[0];
-		$cusid = $_POST['cusid'];
-		$tdate = $_POST['date'];
+	if(isset($_POST['tid'])){
+		if(!empty($_POST['tid'])){
+			$tid = $_POST['tid'];
+			$seat_level = explode(',',$_POST['level'])[0];
+			$cusid = $_POST['cusid'];
+			$tdate = $_POST['date'];
+			$remain = explode(',',$_POST['remain'])[0];
+			$cap = explode(',',$_POST['remain'])[1];
+			$n = intval($remain/$cap);
+			$newid = $cap-($remain-$n*$cap)+1;
+			if($seat_level==1||$seat_level==3){
+				$seat_level++;
+				$isstand = 1;
+			}else{
+				$isstand = 0;
+			}
+			$cariages = [];
+			$sql_cariages = "SELECT id,train_cariage_num FROM cariage WHERE train_id = $tid AND cariage_type_id = $seat_level";
+			$res_car = $mysql->query($sql_cariages);
+			while($row_car = $mysql->fetch($res_car)){
+				array_push($cariages,['id'=>$row_car['id'],'car_num'=>$row_car['train_cariage_num']]);
+			}
+			$cariage_id = $cariages[$n-1]['id'];
+			$cariage_num = $cariages[$n-1]['car_num'];
+			$sql_newTicket = "INSERT tickets VALUES('',$cusid,$isstand,'$tdate',$cariage_id,$newid)";
+			$mysql->query($sql_newTicket);
+			echo "<script>alert('Create Ticket Successfully! \\nCustomer: $cusid \\nisStand: $isstand \\nDate: $tdate \\nTrainID: $tid \\nTrainCarId: $cariage_num \\nCariageID: $cariage_id \\nSeatID: $newid \\nSeatLevel: $seat_level')</script>";
+		}else{
+			echo "<script>alert('No train selected')</script>";
+		}
 		
 	}
 ?>
