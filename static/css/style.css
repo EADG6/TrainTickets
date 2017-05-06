@@ -1,8 +1,17 @@
-/**Nav.php*/
 body{
 	background:#1E3E57;
 	padding-top:20px;
 }
+::selection {
+  color: #FFFFFF;
+  background-color: #FF6384;
+}
+::-moz-selection {
+  color: #FFFFFF;
+  background-color: #FF6384;
+}
+
+/**Nav.php*/
 .mynav{
 	background:#1E3E57;
 }

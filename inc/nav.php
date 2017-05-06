@@ -79,18 +79,6 @@
 </dl>
 <i class="fa fa-3x fa-arrow-circle-left icona" id='rightArrow' onmouseover='this.style.color="#333"' onmouseout='this.style.color="rgba(51, 51, 51, 0.4)"' onclick="showLeft()" style="display:none"></i>
 <a href='#leftMenu'><i class="fa fa-3x fa-arrow-circle-o-up" id='topArrow' onmouseover='this.style.color="#333"' onmouseout='this.style.color="rgba(1, 1, 1, 0.1)"'></i></a>
-<script>
-	function hideLeft(){
-		$('#leftMenu').hide()
-		$('#rightArrow').show()
-		$('#rightMain').attr('class','col-md-10 col-md-offset-1 main')
-	}
-	function showLeft(){
-		$('#leftMenu').show()
-		$('#rightArrow').hide()
-		$('#rightMain').attr('class','col-md-10 main')
-	}
-</script>
 <div class="col-md-10 main" id='rightMain'>
 	<div class='form-group'>
 <?php
