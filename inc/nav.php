@@ -95,7 +95,9 @@
 	<div class='form-group'>
 <?php
 	if(isset($_GET['page'])){
-		echo "<script>$('#".$_GET['page']."')[0].click()</script>";
+		if(isset($_GET['action'])){
+			echo "<script>setTimeout(function(){\$('#".$_GET['page']."')[0].click()},500)</script>";
+		}
 		echo '<i class="fa fa-home"></i>&nbsp;>&nbsp;'.ucwords(inputCheck($_GET['page'])).'&nbsp;>&nbsp;';
 	}		
 	if(isset($_GET['action'])){
