@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-4">
     <div class="form-group">
         <label class="my-4">Start City :</label>
         <select name="scity">
@@ -9,7 +9,7 @@
         </select>
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-4">
     <div class="form-group">
         <label class="my-4">End City :</label>
             <select name="ecity">
