@@ -22,13 +22,13 @@
 		if($action=='new'){
 			include "app/ticket_new.php";
 		}else if($action=='all'){
-			//include "app/ticket_all.php";
+			include "app/ticket_all.php";
 		}
 	}else if($page=='train'){
 		if($action=='new'){
-			//include "app/train_new.php";
+			include "app/train_new.php";
 		}else if($action=='all'){
-			//include "app/train_all.php";
+			include "app/train_all.php";
 		}
 	}else if($page=='customer'){
 		if($action=='new'){
