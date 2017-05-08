@@ -48,7 +48,7 @@
     <div class="form-group col-md-12">
         <label class=>Seat Level :</label>
     </div>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-4">
         <label>Seat Cariage</label>
             <select name="seatca" class="form-control">
                 <option>1</option>
@@ -65,7 +65,7 @@
                 <option>12</option>
             </select>
     </div>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-4">
         <label>Hard Sleeper Cariage</label>
         <select name="hsleepca" class="form-control">
             <option>1</option>
@@ -82,7 +82,7 @@
             <option>12</option>
         </select>
     </div>
-    <div class="form-group col-md-12">
+    <div class="form-group col-md-4">
         <label>Soft Sleeper Cariage</label>
         <select name="ssleepca" class="form-control">
             <option>1</option>

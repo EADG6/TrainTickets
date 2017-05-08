@@ -1,7 +1,7 @@
 <div class="col-md-4">
     <div class="form-group">
         <label class="my-4">Start City :</label>
-        <select name="scity">
+        <select name="scity" class="form-control">
             <option value="cd">Cheng Du</option>
             <option value="bj">Bei Jing</option>
             <option value="sh">Shang Hai</option>
@@ -12,7 +12,7 @@
 <div class="col-md-4">
     <div class="form-group">
         <label class="my-4">End City :</label>
-            <select name="ecity">
+            <select name="ecity" class="form-control">
 				<option value="cd">Cheng Du</option>
 				<option value="bj">Bei Jing</option>
 				<option value="sh">Shang Hai</option>
@@ -33,8 +33,7 @@
                 <th>Seat Cariage</th>
                 <th>Hard Sleeper City</th>
                 <th>Soft Sleeper City</th>
-                <th>Update</th>
-                <th>Delete</th>
+                <th>Operation</th>
             </tr>
         </thead>
         <tbody>
@@ -48,8 +47,7 @@
                 <td>20</td>
                 <td>0</td>
                 <td>0</td>
-                <td>Update</td>
-                <td><a href="javascript:if(confirm('Are You Sure to Delete?'))location=''">Delete </a></td>
+                <td>Update <a href="javascript:if(confirm('Are You Sure to Delete?'))location=''">Delete </a></td>
             </tr>
         </tbody>
     </table>
