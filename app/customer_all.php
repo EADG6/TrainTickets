@@ -6,7 +6,6 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>#</th>
                 <th>Customer ID</th>
                 <th>Customer Name</th>
                 <th>Gender</th>
@@ -18,18 +17,23 @@
               </tr>
         </thead>
 		<tbody>
-			<tr>
-                <td>1</td>
-                <td>108</td>
-                <td>Kevin River</td>
-                <td>Male</td>
-                <td>+86 15982457689</td>
-                <td>22</td>
-                <td>
-					<a class='label label-primary' onclick=''>E</a>						
-					<a class='label label-danger' onclick=''>X</a>
-				</td>
-            </tr>
+			<?php
+				$sql_cus = "SELECT id,CONCAT(firstname,' ',lastname) AS realname,CASE WHEN sex=1 THEN 'Male' WHEN sex=2 THEN 'Female' WHEN sex=3 THEN 'Unknown' END AS sex,year(from_days(datediff(now(),birthdate))) AS age,tel FROM customer";
+				$res_cus = $mysql->query($sql_cus);
+				while($row_cus = $mysql->fetch($res_cus)){
+					echo "<tr>
+						<td>".$row_cus['id']."</td>
+						<td>".$row_cus['realname']."</td>
+						<td>".$row_cus['sex']."</td>
+						<td>".$row_cus['tel']."</td>
+						<td>".$row_cus['age']."</td>
+						<td>
+							<a class='label label-primary' onclick=''>E</a>						
+							<a class='label label-danger' onclick=''>X</a>
+						</td>
+					</tr>";
+				}	
+			?>
         </tbody>
     </table>
 </div>
