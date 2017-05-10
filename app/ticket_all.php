@@ -4,21 +4,33 @@
 	  <div class="panel-heading icona">	
 		<div class="container">
 		  <div class="row">
-			<div class="col-md-6">
+			<div class="col-md-3">
+				<h4 class="text-center">Trian</h4>
+			</div>
+			<div class="col-md-2">
+				<h4 class="text-center">Time</h4>
+			</div>
+			<div class="col-md-2">
+				<h4 class="text-center">Hours</h4>
+			</div>
+			<div class="col-md-2">
 				<h4 class="text-center">Start City</h4>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-2">
 				<h4 class="text-center">End City</h4>
 			</div>
-		  </div>
+		  </div>	
 		</div>
 		</div>
 	  </div>
 		<div class="panel panel-default" style='margin-top:0px;'>
 			<div class="panel-heading" onclick="$('#ticket1')[0].click()">
 				<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" id="ticket1" href="#panel-element-1" style="text-decoration:none;">
-					<div class="col-md-6 text-center">Chengdu</div>
-					<div class="col-md-3 text-right">Beijing</div>
+					<div class="col-md-3 text-center">DH7893</div>
+					<div class="col-md-2 text-center">8:00--20:00</div>
+					<div class="col-md-2 text-center">20h</div>
+					<div class="col-md-2 text-center">Chengdu</div>
+					<div class="col-md-2 text-center">Beijing</div>
 				</a><span class='caret'></span>
 			</div>
 				<div id="panel-element-1" class="panel-collapse collapse">
@@ -129,8 +141,11 @@
 		<div class="panel panel-default" style='margin-top:0px;'>
 							<div class="panel-heading" onclick="$('#train1')[0].click()">
 								<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-2" id="train1" href="#panel-element-2" style="text-decoration:none;">
-									<div class="col-md-6 text-center">Wuhan</div>
-									<div class="col-md-3 text-right">Sichuan</div>
+									<div class="col-md-3 text-center">DW975</div>
+									<div class="col-md-2 text-center">11:00--20:00</div>
+									<div class="col-md-2 text-center">9h</div>
+									<div class="col-md-2 text-center">Wuhan</div>
+									<div class="col-md-2 text-center">Shanghai</div>
 								</a><span class="caret"></span>
 							</div>
 							<div id="panel-element-2" class="panel-collapse collapse">
