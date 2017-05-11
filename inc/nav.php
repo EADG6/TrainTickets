@@ -3,7 +3,10 @@
 	<dd class="clearfix">
 		<div class="mynav">
 			<div class="panel-group" id="panel-leftmenu">
-			  <div class="panel" style="background:#DB4C4C;color:#fff" onclick='location.href="index.php"'><div class="panel-heading icona"><h4><img src=''> Train Ticket System</h4></div>
+			  <div class="panel" style="background:#DB4C4C;color:#fff" onclick='location.href="index.php"'>
+				<div class="panel-heading icona">
+					<h4><img src=''> Train Ticket System</h4>
+				</div>
 			  </div>
 				<div class="panel panel-default" style='margin-top:0px;'>
 					<div class="panel-heading" onclick="$('#ticket')[0].click()">
@@ -16,7 +19,7 @@
 							<div class="panel-body">New Ticket</div>
 						</a>
 						<a href="index.php?page=ticket&action=all" class="panel-legend icona">
-							<div class="panel-body">Edit Ticket</div>
+							<div class="panel-body">All Ticket</div>
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#train')[0].click()">
