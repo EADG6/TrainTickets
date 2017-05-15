@@ -30,12 +30,13 @@
 				</a><span class='caret' <?php echo $num==0?"style='visibility:hidden'":'';?>></span>
 			</div>
 			<input type='hidden' id='tid' value="<?php echo $row_trains['id'];?>">
+			<input type='hidden' id='ttp' value="<?php echo $row_trains['type'];?>">
 			<div id="panel-date<?php echo $row_trains['id'];?>" class="panel-collapse collapse">
 			<?php
 				while($row_date = $mysql->fetch($res_date)){
 			?>
 				<div>
-					<a id="modal-ticket" href="#modal-container-ticket" onclick='$("#test").html($("#tid").val());$("#test1").html($(this).html())' role="button" class="btn" data-toggle="modal"><?php echo $row_date['godate'];?></a>
+					<a id="modal-ticket" href="#modal-container-ticket" onclick='$("#tid_label").html($("#tid").val());$("#ttp_label").html($("#ttp").val());$("#tdate_label").html($(this).html())' role="button" class="btn" data-toggle="modal"><?php echo $row_date['godate'];?></a>
 				</div>									
 			<?php
 				}
@@ -51,17 +52,21 @@
 	<div class="modal-dialog" style='width:80%'>
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close">×</button>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				<h4 class="modal-title" id="myModalLabel">
-					Ticket Management
+					Ticket Information
 				</h4>
 			</div>
 			<div class="modal-body">
 				<table class ='table table table-striped'>
 					<thead>
-						<th colspan='9'>trainid:<span id='test'></span>date:<span id='test1'></span>Ticket Information</th>
+						<th colspan='9'>
+							<span class="col-md-2">Train:<span id='tid_label'></span></span>
+							<span class="col-md-2">Type:<span id='ttp_label'></span></span>
+							<span class="col-md-2">Date:<span id='tdate_label'></span></span>
+						</th>
 							<tr>
-								<th>TrianID</th>
+								<th>Trian</th>
 								<th>Time</th>
 								<th>Hours</th>
 								<th>Price</th>
