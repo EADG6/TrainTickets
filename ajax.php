@@ -37,5 +37,31 @@
 		$seats = $mysql->oneQuery($sql_seats);
 		$cariage = $mysql->oneQuery("SELECT COUNT(id) FROM cariage WHERE train_id = $tid AND cariage_type_id = $stype");
 		echo json_encode(['carnum'=>$cariage,'seatnum'=>$seats]);
+	}else if(isset($_POST['tid'])){
+		$tid = $_POST['tid'];
+		$date = $_POST['tdate'];
+		$sql = "SELECT tk.id,t.name AS train,ty.type,c1.city AS scity,c2.city AS ecity,tk.cariage_id,CONCAT(firstname,' ',lastname) AS realname,tk.seat_id,stp.seats_level,tk.godate,CONCAT (gotime,'-',DATE_FORMAT(timestampadd(hour,hours,gotime),'%T')) AS time,hours,stp.price*hours AS price FROM tickets AS tk INNER JOIN cariage AS car ON tk.cariage_id=car.id INNER JOIN 
+		train AS t ON car.train_id=t.id INNER JOIN train_type AS ty ON t.train_type_id=ty.id INNER JOIN city AS c1 ON start_city_id=c1.id INNER JOIN city AS c2 ON end_city_id=c2.id INNER JOIN customer AS cus ON tk.cus_id=cus.id INNER JOIN seats_type AS stp ON car.cariage_type_id=stp.id WHERE t.id = '$tid' AND godate = '$date' ORDER BY id";
+		$res = $mysql->query($sql);
+		$data = '';
+		while($row = $mysql->fetch($res)){
+			$data .= "<tr id='tk".$row['id']."'><td>".$row['train']."</td>
+						<td>".$row['time']."</td>
+						<td>".$row['hours']."</td>
+						<td>".$row['price']."&#165;</td>
+						<td>".$row['realname']."</td>
+						<td>".$row['seats_level']."</td>
+						<td>".$row['cariage_id']."</td>
+						<td>
+							<a class='label label-primary' href='index.php?page=ticket&action=new&edit=".$row['id']."'>E</a>						
+							<a class='label label-danger' onclick='delTk(".$row['id'].")'>X</a>
+						</td>
+					</tr>";
+		}
+		echo json_encode(['htmls'=>$data]);
+	}
+	if(isset($_POST['deltkid'])){
+		$delid = $_POST['deltkid'];
+		//$sql_deltk = "DELETE FROM ";
 	}
 ?>

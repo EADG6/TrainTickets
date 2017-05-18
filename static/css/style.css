@@ -10,7 +10,12 @@ body{
   color: #FFFFFF;
   background-color: #FF6384;
 }
-
+.nodeco{
+	text-decoration: none;
+}
+.nodeco:hover{
+	text-decoration: none;
+}
 /**Nav.php*/
 .mynav{
 	background:#1E3E57;

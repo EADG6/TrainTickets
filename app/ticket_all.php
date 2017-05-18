@@ -29,14 +29,12 @@
 					<div class="col-md-2 text-right"><?php echo $row_trains['ecity'];?></div>
 				</a><span class='caret' <?php echo $num==0?"style='visibility:hidden'":'';?>></span>
 			</div>
-			<input type='hidden' id='tid' value="<?php echo $row_trains['id'];?>">
-			<input type='hidden' id='ttp' value="<?php echo $row_trains['type'];?>">
 			<div id="panel-date<?php echo $row_trains['id'];?>" class="panel-collapse collapse">
 			<?php
 				while($row_date = $mysql->fetch($res_date)){
 			?>
 				<div>
-					<a id="modal-ticket" href="#modal-container-ticket" onclick='$("#tid_label").html($("#tid").val());$("#ttp_label").html($("#ttp").val());$("#tdate_label").html($(this).html())' role="button" class="btn" data-toggle="modal"><?php echo $row_date['godate'];?></a>
+					<a id="modal-ticket" href="#modal-container-ticket" onclick='ticketinfo(this,"<?php echo $row_trains['id'].'","'.$row_trains['type']?>")' role="button" class="btn" data-toggle="modal"><?php echo $row_date['godate'];?></a>
 				</div>									
 			<?php
 				}
@@ -47,7 +45,43 @@
 		?>
 		</div>
 	</div>
-</div> 
+</div>
+<script>
+	/* Check all tickes of a train in a day*/
+	function ticketinfo(ele,tid,ttp){
+		var tdate = $(ele).html()
+		$("#tid_label").html(tid);
+		$("#ttp_label").html(ttp);
+		$("#tdate_label").html(tdate);
+		$.ajax({
+			url:'ajax.php',
+			data:{"tid":tid,"tdate":tdate},
+			type:'POST',
+			dataType:'json',
+			success:function(data){
+				setTimeout(function(){$('#tickets_info').html(data.htmls)},200)
+			},
+			beforeSend:function(){
+				$('#tickets_info').html("<th colspan=8><center><a class='fa fa-refresh fa-3x fa-spin nodeco'></a></center></th>")
+			}
+		})
+	}
+	function delTk(id){
+		if(confirm("Do you want to delete the ticket?")){
+			$.ajax({
+				url:'ajax.php',
+				data:{"deltkid":id},
+				type:'POST',
+				success:function(data){
+					setTimeout(function(){$('#tk'+id).hide()},500)
+				},
+				beforeSend:function(){
+					$('#tk'+id).html("<th colspan=8><center><a class='fa fa-refresh fa-spin nodeco'></a></center></th>")
+				}
+			})
+		}	
+	}
+</script>
 <div class="modal fadein" id="modal-container-ticket">
 	<div class="modal-dialog" style='width:80%'>
 		<div class="modal-content">
@@ -78,22 +112,9 @@
 								</th>
 							</tr>
 						</thead>
-					<tbody>
-					<th>DH389</th>
-					<th>8:00-20:00</th>
-					<th>12h</th>
-					<th>300￥</th>
-					<th>John</th>
-					<th>Stand</th>
-					<th>1</th>
-					<th>
-						EDIT  DELETE
-					</th>	
+					<tbody id='tickets_info'>
 					</tbody>
 				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> <button type="button" class="btn btn-primary">Save</button>
 			</div>
 		</div>					
 	</div>				

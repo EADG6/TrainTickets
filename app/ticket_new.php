@@ -1,7 +1,7 @@
 ﻿<form method="post">
 	<div class="col-md-6">
 		<div class="form-group">
-			<label>Start City:</label>
+			<label>Departure City:</label>
 			<select class="form-control" onchange='selectCity(this)' name="scity" required>
 				<option value=''>Choose City...</option>
 				<?php
@@ -15,7 +15,7 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label>End City:</label>
+			<label>Destination City:</label>
 			<select class="form-control" onchange='selectCity(this)' name="ecity" required>
 				<option value=''>Choose City...</option>
 				<?php
@@ -56,7 +56,7 @@
 		?>
 		</datalist>
         <div class="form-group">
-			<label>Date:</label>
+			<label>Departure Date:</label>
 			<input type="date" class="form-control" name="date" onchange="checkDate()" required>
 		</div>
     </div>
@@ -116,7 +116,9 @@
 			$cariage_num = $cariages[$n-1]['car_num'];
 			$sql_newTicket = "INSERT tickets VALUES('',$cusid,$isstand,'$tdate',$cariage_id,$newid)";
 			$mysql->query($sql_newTicket);
-			echo "<script>alert('Create Ticket Successfully! \\nCustomer: $cusid \\nisStand: $isstand \\nDate: $tdate \\nTrainID: $tid \\nTrainCarId: $cariage_num \\nCariageID: $cariage_id \\nSeatID: $newid \\nSeatLevel: $seat_level')</script>";
+			echo "<script>if(!confirm('Create Ticket Successfully! \\nCustomer: $cusid \\nisStand: $isstand \\nDate: $tdate \\nTrainID: $tid \\nTrainCarId: $cariage_num \\nCariageID: $cariage_id \\nSeatID: $newid \\nSeatLevel: $seat_level\\nDo you want to continue to add ticket?'))
+				{location.href='index.php?page=ticket&action=all'}
+			</script>";
 		}else{
 			echo "<script>alert('No train selected')</script>";
 		}
