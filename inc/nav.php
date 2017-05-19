@@ -86,11 +86,14 @@
 	<div class='form-group'>
 <?php
 	if(isset($_GET['page'])){
-		if(isset($_GET['action'])){
-			echo "<script>setTimeout(function(){\$('#".$_GET['page']."')[0].click()},500)</script>";
-		}
-		echo '<i class="fa fa-home"></i>&nbsp;>&nbsp;'.ucwords(inputCheck($_GET['page'])).'&nbsp;>&nbsp;';
-	}		
+		$curpage = $_GET['page'];
+	}else{
+		$curpage = 'ticket';
+	}
+	if(isset($_GET['action'])||$curpage=='ticket'){
+		echo "<script>setTimeout(function(){\$('#".$curpage."')[0].click()},500)</script>";
+	}
+	echo '<i class="fa fa-home"></i>&nbsp;>&nbsp;'.ucwords(inputCheck($curpage)).'&nbsp;>&nbsp;';
 	if(isset($_GET['action'])){
 		echo ucwords(inputCheck($_GET['action'])).'&nbsp;>';
 	}

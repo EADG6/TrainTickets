@@ -6,8 +6,8 @@
 					<div class="col-md-2 text-center">Type</div>
 					<div class="col-md-2">Start/End Time</div>
 					<div class="col-md-1 text-center">Hours</div>
-					<div class="col-md-2 text-center">Start City</div>
-					<div class="col-md-2 text-right">End City</div></h4>
+					<div class="col-md-2 text-center">Departure City</div>
+					<div class="col-md-2 text-right">Destination City</div></h4>
 				</div>
 			</div>
 		<div class="panel panel-default" style='margin-top:0px;'>
