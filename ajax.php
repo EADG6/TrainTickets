@@ -40,8 +40,8 @@
 	}else if(isset($_POST['tid'])){
 		$tid = $_POST['tid'];
 		$date = $_POST['tdate'];
-		$sql = "SELECT tk.id,t.name AS train,ty.type,c1.city AS scity,c2.city AS ecity,tk.cariage_id,CONCAT(firstname,' ',lastname) AS realname,tk.seat_id,stp.seats_level,tk.godate,CONCAT (gotime,'-',DATE_FORMAT(timestampadd(hour,hours,gotime),'%T')) AS time,hours,stp.price*hours AS price FROM tickets AS tk INNER JOIN cariage AS car ON tk.cariage_id=car.id INNER JOIN 
-		train AS t ON car.train_id=t.id INNER JOIN train_type AS ty ON t.train_type_id=ty.id INNER JOIN city AS c1 ON start_city_id=c1.id INNER JOIN city AS c2 ON end_city_id=c2.id INNER JOIN customer AS cus ON tk.cus_id=cus.id INNER JOIN seats_type AS stp ON car.cariage_type_id=stp.id WHERE t.id = '$tid' AND godate = '$date' ORDER BY id";
+		$sql = "SELECT tk.id,t.name AS train,ty.type,c1.city AS scity,c2.city AS ecity,tk.cariage_id,CONCAT(firstname,' ',lastname) AS realname,tk.seat_id,CASE WHEN tk.isstand=0 THEN stp.seats_level WHEN tk.isstand=1 THEN 'Stand' END AS seats_level,tk.seat_id,tk.godate,CONCAT (gotime,'-',DATE_FORMAT(timestampadd(hour,hours,gotime),'%T')) AS time,hours,stp.price*hours AS price FROM tickets AS tk 
+		INNER JOIN cariage AS car ON tk.cariage_id=car.id INNER JOIN train AS t ON car.train_id=t.id INNER JOIN train_type AS ty ON t.train_type_id=ty.id INNER JOIN city AS c1 ON start_city_id=c1.id INNER JOIN city AS c2 ON end_city_id=c2.id INNER JOIN customer AS cus ON tk.cus_id=cus.id INNER JOIN seats_type AS stp ON car.cariage_type_id=stp.id WHERE t.id = '$tid' AND godate = '$date' ORDER BY id";
 		$res = $mysql->query($sql);
 		$data = '';
 		while($row = $mysql->fetch($res)){
@@ -50,7 +50,7 @@
 						<td>".$row['hours']."</td>
 						<td>".$row['price']."&#165;</td>
 						<td>".$row['realname']."</td>
-						<td>".$row['seats_level']."</td>
+						<td>".$row['seats_level'].'-'.$row['seat_id']."</td>
 						<td>".$row['cariage_id']."</td>
 						<td>
 							<a class='label label-primary' href='index.php?page=ticket&action=new&edit=".$row['id']."'>E</a>						
@@ -59,9 +59,8 @@
 					</tr>";
 		}
 		echo json_encode(['htmls'=>$data]);
-	}
-	if(isset($_POST['deltkid'])){
+	}else if(isset($_POST['deltkid'])){
 		$delid = $_POST['deltkid'];
-		//$sql_deltk = "DELETE FROM ";
+		//$sql_deltk = "DELETE FROM "; only delete outdate tickets
 	}
 ?>

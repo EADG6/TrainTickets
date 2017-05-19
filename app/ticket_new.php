@@ -99,7 +99,12 @@
 			$remain = explode(',',$_POST['remain'])[0];
 			$cap = explode(',',$_POST['remain'])[1];
 			$n = intval($remain/$cap);
-			$newid = $cap-($remain-$n*$cap)+1;
+			if($remain == $n*$cap){
+				$newid = 1;
+				$n = 1;
+			}else{
+				$newid = $cap-($remain-$n*$cap)+1;
+			}
 			if($seat_level==1||$seat_level==3){
 				$seat_level++;
 				$isstand = 1;
@@ -116,7 +121,7 @@
 			$cariage_num = $cariages[$n-1]['car_num'];
 			$sql_newTicket = "INSERT tickets VALUES('',$cusid,$isstand,'$tdate',$cariage_id,$newid)";
 			$mysql->query($sql_newTicket);
-			echo "<script>if(!confirm('Create Ticket Successfully! \\nCustomer: $cusid \\nisStand: $isstand \\nDate: $tdate \\nTrainID: $tid \\nTrainCarId: $cariage_num \\nCariageID: $cariage_id \\nSeatID: $newid \\nSeatLevel: $seat_level\\nDo you want to continue to add ticket?'))
+			echo "<script>if(!confirm('Create Ticket Successfully! \\nCustomer: $cusid \\nisStand: $isstand \\nDate: $tdate \\nTrainID: $tid \\nTrainCarId: $cariage_num \\nCariageID: $cariage_id \\nSeatID: $newid \\nSeatLevel: $seat_level\\nDo you want to continue to add more ticket or cancel to check all tickets?'))
 				{location.href='index.php?page=ticket&action=all'}
 			</script>";
 		}else{
