@@ -19,24 +19,28 @@
 	function countSeat(){
 		var godate = $('[name="date"]').val();
 		var train_id = $('#tid').val();
-		if(($('[name="level"]').val()+godate+train_id)!='undefined'){
-			var seat_type_id = $('[name="level"]').val().split(",")[0];
-			var cariage_cap = $('[name="level"]').val().split(",")[2];
-			$.ajax({
-				url:'ajax.php',
-				data:{"stype":seat_type_id,"godate":godate,"tid":train_id},
-				type:'POST',
-				dataType:'json',
-				success:function(data){
-					total = parseInt(data.carnum)*cariage_cap;
-					remain = total - data.seatnum;
-					$('#remain').val(remain+' / '+total+' ('+cariage_cap+' Seat * '+data.carnum+' Cariage)')
-					$('[name="remain"]').val(remain+','+cariage_cap)
-					if(remain==0){
-						$('[name="level"]').val('')
+		try{
+			if(($('[name="level"]').val()+godate+train_id)!='undefined'){
+				var seat_type_id = $('[name="level"]').val().split(",")[0];
+				var cariage_cap = $('[name="level"]').val().split(",")[2];
+				$.ajax({
+					url:'ajax.php',
+					data:{"stype":seat_type_id,"godate":godate,"tid":train_id},
+					type:'POST',
+					dataType:'json',
+					success:function(data){
+						total = parseInt(data.carnum)*cariage_cap;
+						remain = total - data.seatnum;
+						$('#remain').val(remain+' / '+total+' ('+cariage_cap+' Seat * '+data.carnum+' Cariage)')
+						$('[name="remain"]').val(remain+','+cariage_cap)
+						if(remain==0){
+							$('[name="level"]').val('')
+						}
 					}
-				}
-			})
+				})
+			}
+		}catch(error){
+			return false;
 		}
 	}
 /* Check train time */
@@ -83,11 +87,38 @@
 	function checkDate(){
 		reqDate = document.getElementsByName('date')[0].valueAsDate
 		if(reqDate < new Date().getTime()){
-			alert("The test drive request time must later than today");
+			alert("The ticket date must later than today");
 			$('[name="date"]').val('')
 			$('#subbtn').attr('disabled',true)
 		}else{
 			$('#subbtn').attr('disabled',false)
 			countSeat()
 		}
+	}
+/* Edit tickets */
+	function editTk(id){
+		$.ajax({
+			url:'ajax.php',
+			data:{"editTkId":id},
+			type:'POST',
+			dataType:'json',
+			success:function(data){
+				$('[name="level"]').children()[data.seats_type].selected='true';
+				$('[name="scity"]').val(data.start_city_id);
+				$('[name="ecity"]').val(data.end_city_id);
+				$('[name="cusid"]').val(data.cus_id);
+				$('#cusname').val($('#cuslist [value='+data.cus_id+']').html().split('/')[0])
+				$('[name="date"]').val(data.godate);
+				selectCity($('[name="scity"]')[0]);
+				selectCity($('[name="ecity"]')[0]);
+				countPrice();
+				checkDate();
+				$('[name="editid"]').val(id)
+				$('[name="newtk"]').html('Edit')
+				$('[name="newtk"]').attr('name','editTk')
+			},
+			beforeSend:function(){
+				$('#subbtn').html('<i class="fa fa-refresh fa-spin nodeco"></i>')
+			}
+		})
 	}

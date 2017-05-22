@@ -47,6 +47,7 @@
 		$data = '';
 		while($row = $mysql->fetch($res)){
 			$delfunc = $now>strtotime($date)?"delTk(".$row['id'].")":"alert(\"You can only delete history tickets\")";
+			$editfunc = $now>strtotime($date)?'javascript:alert("You cannot edit history tickets")':"index.php?page=ticket&action=new&edit=".$row['id'];
 			$data .= "<tr id='tk".$row['id']."'><td>".$row['train']."</td>
 						<td>".$row['time']."</td>
 						<td>".$row['hours']."</td>
@@ -55,7 +56,7 @@
 						<td>".$row['seats_level'].'-'.$row['seat_id']."</td>
 						<td>".$row['cariage_id']."</td>
 						<td>
-							<a class='label label-primary' href='index.php?page=ticket&action=new&edit=".$row['id']."'>E</a>						
+							<a class='label label-primary' href='$editfunc'>E</a>						
 							<a class='label label-danger' onclick='$delfunc'>X</a>
 						</td>
 					</tr>";
@@ -65,5 +66,11 @@
 		$delid = $_POST['deltkid'];
 		$sql_deltk = "DELETE FROM tickets WHERE id = '$delid'";
 		$mysql->query($sql_deltk);
+	}else if(isset($_POST['editTkId'])){
+		$editTkId = inputCheck($_POST['editTkId']);
+		$sql_tkinfo = "SELECT t.*,tr.start_city_id,tr.end_city_id,CASE WHEN isstand = 1 AND tr.train_type_id = 1 THEN 1 WHEN isstand = 1 AND tr.train_type_id = 2 THEN 3 WHEN isstand = 0 THEN cariage_type_id END AS seats_type FROM tickets AS t INNER JOIN cariage AS c ON t.cariage_id = c.id INNER JOIN seats_type AS st ON c.cariage_type_id = st.id INNER JOIN train AS tr ON c.train_id = tr.id WHERE t.id='$editTkId'";
+		$res_tkinfo = $mysql->query($sql_tkinfo);
+		$tkdata = $mysql->fetch($res_tkinfo);
+		echo json_encode($tkdata);
 	}
 ?>

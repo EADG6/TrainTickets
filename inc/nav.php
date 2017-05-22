@@ -94,8 +94,12 @@
 		echo "<script>setTimeout(function(){\$('#".$curpage."')[0].click()},500)</script>";
 	}
 	echo '<i class="fa fa-home"></i>&nbsp;>&nbsp;'.ucwords(inputCheck($curpage)).'&nbsp;>&nbsp;';
-	if(isset($_GET['action'])){
-		echo ucwords(inputCheck($_GET['action'])).'&nbsp;>';
+	if(!isset($_GET['edit'])){
+		if(isset($_GET['action'])){
+			echo ucwords(inputCheck($_GET['action'])).'&nbsp;>';
+		}
+	}else{
+		echo "Edit >";
 	}
 ?>
 	</div>

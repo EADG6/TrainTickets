@@ -85,7 +85,8 @@
 		</div>
     </div>
 	 <div class="col-md-6 col-md-offset-3 topblank">
-        <button type="submit" class="btn btn-primary btn-block" id='subbtn' disabled>Submit</button>
+        <button type="submit" class="btn btn-primary btn-block" name='newtk' id='subbtn' disabled>Submit</button>
+		<input type="hidden" name='editid'>
     </div>
 </form>
 <script type="text/javascript" src="static/js/ticketsell.js"></script>
@@ -119,14 +120,25 @@
 			}
 			$cariage_id = $cariages[$n-1]['id'];
 			$cariage_num = $cariages[$n-1]['car_num'];
-			$sql_newTicket = "INSERT tickets VALUES('',$cusid,$isstand,'$tdate',$cariage_id,$newid)";
-			$mysql->query($sql_newTicket);
-			echo "<script>if(!confirm('Create Ticket Successfully! \\nCustomer: $cusid \\nisStand: $isstand \\nDate: $tdate \\nTrainID: $tid \\nTrainCarId: $cariage_num \\nCariageID: $cariage_id \\nSeatID: $newid \\nSeatLevel: $seat_level\\nDo you want to continue to add more ticket or cancel to check all tickets?'))
+			if(isset($_POST['newtk'])){
+				$sql_newTicket = "INSERT tickets VALUES('',$cusid,$isstand,'$tdate',$cariage_id,$newid)";
+				$mysql->query($sql_newTicket);
+				$act = 'Create';
+			}else if(isset($_POST['editTk'])){
+				$editTkID = $_POST['editid'];
+				$sql_editTicket = "UPDATE tickets SET cus_id = '$cusid', isstand = '$isstand', godate = '$tdate', cariage_id = '$cariage_id', seat_id = '$newid' WHERE id = '$editTkID'";
+				$mysql->query($sql_editTicket);
+				$act = 'Edit';
+			}
+			echo "<script>if(!confirm('$act Ticket Successfully! \\nCustomer: $cusid \\nisStand: $isstand \\nDate: $tdate \\nTrainID: $tid \\nTrainCarId: $cariage_num \\nCariageID: $cariage_id \\nSeatID: $newid \\nSeatLevel: $seat_level\\nDo you want to continue to add more ticket or cancel to check all tickets?'))
 				{location.href='index.php?page=ticket&action=all'}
 			</script>";
 		}else{
 			echo "<script>alert('No train selected')</script>";
 		}
-		
+	}
+	if(isset($_GET['edit'])){
+		$editID = inputCheck($_GET['edit']);
+		echo "<script>editTk($editID)</script>";
 	}
 ?>
