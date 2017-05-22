@@ -38,11 +38,11 @@
 		}
 	}else if($page=='staff'){
 		if($action=='new'){
-			//include "app/staff_new.php";
+			include "app/staff_new.php";
 		}else if($action=='all'){
-			//include "app/staff_all.php";
+			include "app/staff_all.php";
 		}else if($action=='role'){
-			//include "app/staff_role.php";
+			include "app/staff_role.php";
 		}
 	}else if($page=='profile'){
 		//include "app/profile.php";
