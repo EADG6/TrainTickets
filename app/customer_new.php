@@ -1,4 +1,5 @@
-﻿<form method="post">        
+﻿
+<form method="post">        
 	<div class="col-md-6">
         <div class="form-group">
 			<label>Customer Number</label>
@@ -36,10 +37,37 @@
 		</div>
         <div class="form-group"> 
 			<label>Native Place</label>
-			<input type="text" class="form-control" placeholder="Native Place">
+			<input type="text" class="form-control" name='nplace' placeholder="Native Place">
 		</div>
     </div>
     <div class="col-md-6 col-md-offset-3 topblank">
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
     </div>
 </form>
+<?php
+	if(isset($_POST['fname'])){
+		if(!empty($_POST['fname'])){
+			$fname = $_POST['fname'];
+			$lname = $_POST['lname'];
+			$birth = $_POST['birth'];
+			$idnum = $_POST['idnum'];
+			$tel = $_POST['tel'];
+			$sex = $_POST['sex'];
+			$nplace = $_POST['nplace'];
+
+			$sql_newCustomer = "INSERT customer VALUES('','$fname','$lname','$sex','$birth','$tel')";
+			$mysql->query($sql_newCustomer);
+			echo "<script>if(confirm('Create Ticket Successfully!'))
+				{location.href='index.php?page=customer&action=all'}
+			</script>";
+		}else{
+			echo "<script>alert('Something Wrong')</script>";
+		}
+		
+	}
+
+
+
+
+
+?>
