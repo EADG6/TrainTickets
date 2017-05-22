@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 ﻿
+=======
+>>>>>>> fd62cac9236a4a048b2a2e3410908871ea14988d
 <form method="post">        
 	<div class="col-md-6">
         <div class="form-group">
