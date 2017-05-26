@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-05-06 14:05:26
+-- Generation Time: 2017-05-26 13:49:56
 -- 服务器版本： 5.6.24
 -- PHP Version: 5.6.8
 
@@ -28,9 +28,28 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `access` (
   `id` int(11) NOT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `access` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `name` varchar(20) DEFAULT NULL,
+  `page` varchar(20) DEFAULT NULL,
+  `action` varchar(20) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- 转存表中的数据 `access`
+--
+
+INSERT INTO `access` (`id`, `name`, `page`, `action`, `role_id`) VALUES
+(1, 'Creat New Ticket', 'ticket', 'new', 3),
+(2, 'Check and Edit Ticke', 'ticket', 'all', 3),
+(3, 'Create New Train', 'train', 'new', 2),
+(4, 'Check and Edit Train', 'train', 'all', 2),
+(5, 'Create New Customer', 'customer', 'new', 3),
+(6, 'Check and Edit Custo', 'customer', 'all', 3),
+(7, 'Create New Staff', 'staff', 'new', 2),
+(8, 'Check and Edit Staff', 'staff', 'all', 2),
+(9, 'Update Staff Role', 'staff', 'role', 1),
+(10, 'Configure Role Acces', 'staff', 'rolecfg', 1),
+(11, 'Update Personal Prof', 'profile', 'all', 4);
 
 -- --------------------------------------------------------
 
@@ -176,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `godate` date NOT NULL,
   `cariage_id` int(11) NOT NULL,
   `seat_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `tickets`
@@ -185,8 +204,15 @@ CREATE TABLE IF NOT EXISTS `tickets` (
 INSERT INTO `tickets` (`id`, `cus_id`, `isstand`, `godate`, `cariage_id`, `seat_id`) VALUES
 (1, 1, 0, '2017-05-07', 1, 1),
 (2, 2, 0, '2017-05-07', 1, 2),
-(5, 3, 1, '2017-05-07', 2, 1),
-(6, 4, 1, '2017-05-06', 2, 1);
+(5, 3, 1, '2017-05-07', 1, 1),
+(8, 2, 1, '2017-05-07', 1, 2),
+(9, 4, 0, '2017-05-19', 15, 1),
+(10, 2, 1, '2017-05-31', 17, 1),
+(11, 3, 1, '2017-05-31', 17, 2),
+(12, 2, 0, '2017-05-20', 17, 1),
+(13, 3, 1, '2017-05-31', 15, 1),
+(15, 3, 0, '2017-05-23', 9, 1),
+(16, 1, 0, '2017-05-31', 17, 1);
 
 -- --------------------------------------------------------
 
@@ -273,7 +299,7 @@ INSERT INTO `user` (`id`, `username`, `pwd`, `salt`, `fname`, `lname`, `role_id`
 -- Indexes for table `access`
 --
 ALTER TABLE `access`
-  ADD PRIMARY KEY (`id`), ADD KEY `role_id` (`role_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cariage`
@@ -337,7 +363,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `access`
 --
 ALTER TABLE `access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `cariage`
 --
@@ -362,7 +388,7 @@ ALTER TABLE `seats_type`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `train`
 --
@@ -376,12 +402,6 @@ ALTER TABLE `train_type`
 --
 -- 限制导出的表
 --
-
---
--- 限制表 `access`
---
-ALTER TABLE `access`
-ADD CONSTRAINT `access_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
 
 --
 -- 限制表 `cariage`

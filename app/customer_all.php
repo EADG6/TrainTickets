@@ -18,7 +18,7 @@
         </thead>
 		<tbody>
 			<?php
-				$sql_cus = "SELECT id,CONCAT(firstname,' ',lastname) AS realname,CASE WHEN sex=1 THEN 'Male' WHEN sex=2 THEN 'Female' WHEN sex=3 THEN 'Unknown' END AS sex,year(from_days(datediff(now(),birthdate))) AS age,tel FROM customer";
+				$sql_cus = "SELECT id,CONCAT(firstname,' ',lastname) AS realname,CASE WHEN sex=1 THEN 'Male' WHEN sex=2 THEN 'Female' WHEN sex=0 THEN 'Unknown' END AS sex,year(from_days(datediff(now(),birthdate))) AS age,tel FROM customer";
 				$res_cus = $mysql->query($sql_cus);
 				while($row_cus = $mysql->fetch($res_cus)){
 					echo "<tr>

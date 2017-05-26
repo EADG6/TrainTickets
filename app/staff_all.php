@@ -9,6 +9,7 @@
                 <th>Staff ID</th>
                 <th>Staff Name</th>
                 <th>User Name</th>
+                <th>Role</th>
                 <th>Phone Number</th>
                 <th>Email</th>
                 <th>
@@ -18,13 +19,14 @@
         </thead>
 		<tbody>
 			<?php
-				$sql_stf = "SELECT id,CONCAT(fname,' ',lname) AS realname,username,tel,email FROM user";
+				$sql_stf = "SELECT u.id,CONCAT(fname,' ',lname) AS realname,username,tel,email,r.name AS role FROM user AS u INNER JOIN role AS r ON u.role_id=r.id";
 				$res_stf = $mysql->query($sql_stf);
 				while($row_stf = $mysql->fetch($res_stf)){
 					echo "<tr>
 						<td>".$row_stf['id']."</td>
 						<td>".$row_stf['realname']."</td>
 						<td>".$row_stf['username']."</td>
+						<td>".$row_stf['role']."</td>
 						<td>".$row_stf['tel']."</td>
 						<td>".$row_stf['email']."</td>
 						<td>
