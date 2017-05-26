@@ -97,7 +97,7 @@
 						<th colspan='9'>
 							<span class="col-md-2">Train:<span id='tid_label'></span></span>
 							<span class="col-md-2">Type:<span id='ttp_label'></span></span>
-							<span class="col-md-2">Date:<span id='tdate_label'></span></span>
+							<span class="col-md-8">Departure Date:<span id='tdate_label'></span></span>
 						</th>
 							<tr>
 								<th>Trian</th>
