@@ -1,5 +1,6 @@
 <?php
 	require "inc/db.php";
+	/*Search Train information*/
 	if(isset($_POST['scityid'])){
 		$traininfo = ['train'=>['tid'=>'','tname'=>'','seat_type'=>[]],'start'=>'','end'=>'','hours'=>'','type'=>'','error'=>0];
 		$scityid = $_POST['scityid'];
@@ -24,6 +25,7 @@
 			$traininfo['error'] = 1;
 		}
 		echo json_encode($traininfo);
+	/*Search carriage and seats number*/
 	}else if(isset($_POST['stype'])){
 		$stype = $_POST['stype'];
 		$godate = $_POST['godate'];
@@ -37,6 +39,7 @@
 		$seats = $mysql->oneQuery($sql_seats);
 		$cariage = $mysql->oneQuery("SELECT COUNT(id) FROM cariage WHERE train_id = $tid AND cariage_type_id = $stype");
 		echo json_encode(['carnum'=>$cariage,'seatnum'=>$seats]);
+	/*Query tickets information*/
 	}else if(isset($_POST['tid'])){
 		$tid = $_POST['tid'];
 		$date = $_POST['tdate'];
@@ -62,15 +65,28 @@
 					</tr>";
 		}
 		echo json_encode(['htmls'=>$data]);
+	/*Delete tickets*/	
 	}else if(isset($_POST['deltkid'])){
 		$delid = $_POST['deltkid'];
 		$sql_deltk = "DELETE FROM tickets WHERE id = '$delid'";
 		$mysql->query($sql_deltk);
+	/*Edit a ticket*/	
 	}else if(isset($_POST['editTkId'])){
 		$editTkId = inputCheck($_POST['editTkId']);
 		$sql_tkinfo = "SELECT t.*,tr.start_city_id,tr.end_city_id,CASE WHEN isstand = 1 AND tr.train_type_id = 1 THEN 1 WHEN isstand = 1 AND tr.train_type_id = 2 THEN 3 WHEN isstand = 0 THEN cariage_type_id END AS seats_type FROM tickets AS t INNER JOIN cariage AS c ON t.cariage_id = c.id INNER JOIN seats_type AS st ON c.cariage_type_id = st.id INNER JOIN train AS tr ON c.train_id = tr.id WHERE t.id='$editTkId'";
 		$res_tkinfo = $mysql->query($sql_tkinfo);
 		$tkdata = $mysql->fetch($res_tkinfo);
 		echo json_encode($tkdata);
+	/*Check username uniqueness*/	
+	}else if(isset($_POST['usercheck'])){
+		$usercheck = inputCheck(strtolower(preg_replace("/\s/","",$_POST['usercheck'])));
+		if(empty($usercheck)){
+			$isNameUsed= 'empty';
+		}else{
+			$res = $mysql->query("SELECT * FROM user WHERE username = '$usercheck'");
+			$isNameUsed = mysql_num_rows($res)? 'used':'ok';
+		}
+		$resp = ['used'=>$isNameUsed];
+		echo json_encode($resp);
 	}
 ?>
