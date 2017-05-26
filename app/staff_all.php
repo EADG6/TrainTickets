@@ -29,8 +29,7 @@
 						<td>".$row_stf['role']."</td>
 						<td>".$row_stf['tel']."</td>
 						<td>".$row_stf['email']."</td>
-						<td>
-							<a class='label label-primary' href='index.php?page=staff&action=new&edit=".$row_stf['id']."'>E</a>						
+						<td>				
 							<a class='label label-danger' onclick=\"if(confirm('Do you want to delete the user?')){location.href='index.php?page=staff&action=all&del=".$row_stf['id']."'}\">X</a>
 						</td>
 					</tr>";

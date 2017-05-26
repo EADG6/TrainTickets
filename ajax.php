@@ -88,5 +88,11 @@
 		}
 		$resp = ['used'=>$isNameUsed];
 		echo json_encode($resp);
+	/*Edit customer information*/
+	}else if(isset($_POST['editcus'])){
+		$editcusid = inputCheck($_POST['editcus']);
+		$sql_cusinfo = "SELECT * FROM customer WHERE id = '$editcusid'";
+		$res_cusinfo = $mysql->fetch($mysql->query($sql_cusinfo));
+		echo json_encode($res_cusinfo);
 	}
 ?>
