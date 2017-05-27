@@ -59,8 +59,8 @@
 				var level = $('[name="level"] option');
 				level.attr('disabled',true)
 				if(data.error==1){
-					$('#stime').val('No train between these two cities')
-					$('#etime').val('No train between these two cities')
+					$('#stime').val('No train be found')
+					$('#etime').val('No train be found')
 					$('#trainSelected').html('')
 					$('#tid').val('')
 					$("#price").val(0)
