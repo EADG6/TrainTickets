@@ -1,0 +1,123 @@
+body{
+	background:#1E3E57;
+	padding-top:20px;
+}
+::selection {
+  color: #FFFFFF;
+  background-color: #FF6384;
+}
+::-moz-selection {
+  color: #FFFFFF;
+  background-color: #FF6384;
+}
+.nodeco{
+	text-decoration: none;
+}
+.nodeco:hover{
+	text-decoration: none;
+}
+/**Nav.php*/
+.mynav{
+	background:#1E3E57;
+}
+.topblank{
+	padding-top:20px;
+}
+.panel-legend{
+	display:block;
+	border-top: 1px solid #ddd;
+}
+.icona{
+	cursor:pointer;
+}
+.icona:focus,
+.icona:hover{
+	text-decoration:none;
+}
+#leftArrow{
+	left:2%;
+	color:rgba(51, 51, 51, 0.4);
+}
+#rightArrow{
+	position: fixed;
+    z-index: 1;
+    top: 50%;
+	left:4%;
+	color:rgba(51, 51, 51, 0.4);
+}
+#topArrow{
+	position: fixed;
+    z-index: 1;
+    top: 70%;
+	right:3%;
+	color:rgba(1, 1, 1, 0.1);
+}
+#leftMenu{
+	-webkit-animation: move-in-right cubic-bezier(.22,.58,.12,.98) .4s;
+    animation: move-in-right cubic-bezier(.22,.58,.12,.98) .4s;
+}
+.main{
+	background:#fff;
+	border-radius: 5px;
+	box-shadow: 2px 3px 20px 1px black;
+	min-height: 600px;
+	padding-top:20px;
+}
+@keyframes move-in-right{
+	0% {
+		opacity: 0;
+		-webkit-transform: translate(5em,0);
+		transform: translate(5em,0);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: translate(0,0);
+		transform: translate(0,0);
+	}
+}
+
+/**Login Page*/
+.loginTit{
+	color:#fff;
+	margin-top: 0;
+}
+.seepwd{
+	position:absolute;
+	margin-top: -27px;
+	margin-left: 90%;
+	cursor:pointer;
+}
+.logmain{
+	background:#fff;
+	border-radius: 5px;
+	box-shadow: 2px 3px 9px 1px black;
+	min-height: 300px;
+}
+
+/**Customer page*/
+.helptip{
+    position: absolute;
+    height: 50px;
+    right: 10px;
+    top: 5px;
+    padding: 10px;
+    line-height: 26px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    z-index: 3;
+    -webkit-animation: move-in-left cubic-bezier(.22,.58,.12,.98) .4s;
+    animation: move-in-left cubic-bezier(.22,.58,.12,.98) .4s;
+    box-shadow: 2px 2px 11px 0px rgba(0, 0, 0, 0.55);
+}
+@keyframes move-in-left{
+	0% {
+		opacity: 0;
+		-webkit-transform: translate(-5em,0);
+		transform: translate(-5em,0);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: translate(0,0);
+		transform: translate(0,0);
+	}
+}
