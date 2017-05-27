@@ -11,7 +11,9 @@
 	function countPrice(){
 		var ele = $('[name="level"]').val();
 		if(ele!=null){
-			$("#price").val(parseInt(ele.split(",")[1])*$("#hours").val()+'RMB')
+			price = parseInt(ele.split(",")[1])*$("#hours").val()
+			$("#price").val(price+'RMB')
+			$('[name="price"]').val(price)
 			countSeat()
 		}
 	}
@@ -47,9 +49,10 @@
 	function trainTime(){
 		scityid = $('[name="scity"]').val();
 		ecityid = $('[name="ecity"]').val();
+		ttype = $('[name="ttype"]').val();
 		$.ajax({
 			url:'ajax.php',
-			data:{"scityid":scityid,"ecityid":ecityid},
+			data:{"scityid":scityid,"ecityid":ecityid,"ttype":ttype},
 			type:'POST',
 			dataType:'json',
 			success:function(data){
@@ -69,6 +72,11 @@
 							level[i].disabled = false;
 						}
 					}
+					if($('[name="level"] option:selected').attr('disabled')=='disabled'){
+						$('[name="level"]').val('')
+						$('#price').val('')
+						$('#remain').val('')
+					}
 					$('#stime').val(data.start)
 					$('#etime').val(data.end+' /'+data.hours+' Hours')
 					$("#hours").val(data.hours)
@@ -76,10 +84,6 @@
 					$('#tid').val(data.train.tid)
 					countPrice()
 				}
-			},
-			beforeSend:function(){
-			/* 	$('[name="username"]').next().attr('class','seepwd btn-warning')
-				$('[name="username"]').next().children('i').attr('class','fa fa-spinner fa-spin') */
 			}
 		});
 	}
