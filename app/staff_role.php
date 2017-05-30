@@ -104,6 +104,7 @@
 								<div class="form-group">
 									<label>Please Verify Your Password...</label>
 									<input type='password' name='cfpwd' class="form-control" required/>
+									<kbd class='seepwd' onmousedown="seepwd('cfpwd')"><i class='fa fa-eye'></i></kbd>
 								</div>
 								<input type='hidden' name='editid'/>
 								<br/><button type='submit' class='btn btn-primary btn-block' style='padding-right:0;'/>Submit</button>
@@ -140,6 +141,7 @@
 								<div class="form-group">
 									<label>Please Verify Your Password...</label>
 									<input type='password' name='cfpwd' class="form-control" required/>
+									<kbd class='seepwd' onmousedown="seepwd('cfpwd')"><i class='fa fa-eye'></i></kbd>
 								</div>
 								<input type='hidden' name='cfgid'/>
 								<br/><button type='submit' class='btn btn-primary btn-block' style='padding-right:0;'/>Submit</button>
