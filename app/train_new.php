@@ -122,6 +122,40 @@
             $gotime = inputCheck($_POST['stime']);
             $hours = inputCheck($_POST['hours']);
             $train_type_id = inputCheck($_POST['ttype']);
+<<<<<<< HEAD
+            $hseatca = inputCheck($_POST['hseatca']);
+            $sseatca = inputCheck($_POST['sseatca']);
+            $hsleepca = inputCheck($_POST['hsleepca']);
+            $ssleepca = inputCheck($_POST['ssleepca']);
+            $sql = "SELECT * FROM train WHERE name = '$name'";
+            $query = $mysql->query("$sql");
+            $rows = mysql_num_rows($query);
+	        if ($rows ==1){
+			 echo"<script>alert('Train ID in Using');location.href='index.php?page=train&action=new';</script>"; 
+		  }else{
+                $sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
+                $mysql->query($sql_newtrain);
+                $lid = mysql_insert_id();
+            if(!empty($hseatca)){
+                $sql_hseatca = "INSERT INTO cariage VALUES('','2','$lid','$hseatca')"; 
+                $mysql->query($sql_hseatca);
+            }
+            if(!empty($sseatca)){
+                $sql_sseatca = "INSERT INTO cariage VALUES('','4','$lid','$sseatca')"; 
+                $mysql->query($sql_sseatca);
+            }
+            if(!empty($hsleepca)){
+                $sql_hsleepca = "INSERT INTO cariage VALUES('','5','$lid','$hsleepca')"; 
+                $mysql->query($sql_hsleepca);
+            }
+            if(!empty($ssleepca)){
+                $sql_ssleepca = "INSERT INTO cariage VALUES('','6','$lid','$ssleepca')"; 
+                $mysql->query($sql_ssleepca);
+            }
+            echo"<script>alert('Add New Train Successful');location.href='index.php?page=train&action=all';</script>"; 
+            }
+    }
+=======
             $hseatca = isset($_POST['hseatca'])?(int)$_POST['hseatca']:0;
             $sseatca = isset($_POST['sseatca'])?(int)$_POST['sseatca']:0;
             $hsleepca = isset($_POST['hsleepca'])?(int)$_POST['hsleepca']:0;
@@ -179,4 +213,5 @@
 		echo "<script>edittrain('$editid')</script>";
 	}
 
+>>>>>>> origin/dev
 ?>
