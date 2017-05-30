@@ -50,6 +50,9 @@
 						<a href="index.php?page=customer&action=all" class="panel-legend icona">
 							<div class="panel-body">Edit Customer</div>
 						</a>
+						<a href="index.php?page=customer&action=report" class="panel-legend icona">
+							<div class="panel-body">Customer Report</div>
+						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#staff')[0].click()">
 						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="staff" href="#panel-element-staff">

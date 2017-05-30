@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-05-27 05:09:15
+-- Generation Time: 2017-05-30 13:14:56
 -- 服务器版本： 5.6.24
 -- PHP Version: 5.6.8
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `access` (
   `page` varchar(20) DEFAULT NULL,
   `action` varchar(20) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `access`
@@ -49,7 +49,9 @@ INSERT INTO `access` (`id`, `name`, `page`, `action`, `role_id`) VALUES
 (8, 'Check and Edit Staff', 'staff', 'all', 2),
 (9, 'Update Staff Role', 'staff', 'role', 1),
 (10, 'Configure Role Access', 'staff', 'rolecfg', 1),
-(11, 'Update Personal Profile', 'profile', 'all', 4);
+(11, 'Update Personal Profile', 'profile', 'all', 4),
+(12, 'Show All tickets in a day', 'ticket', 'day', 3),
+(13, 'Report shows customer payment', 'customer', 'report', 2);
 
 -- --------------------------------------------------------
 
@@ -62,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `cariage` (
   `cariage_type_id` int(11) DEFAULT NULL,
   `train_id` int(11) DEFAULT NULL,
   `train_cariage_num` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `cariage`
@@ -126,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `tel` varchar(50) DEFAULT NULL,
   `IDcard` int(11) DEFAULT NULL,
   `birthplace` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `customer`
@@ -178,8 +180,8 @@ CREATE TABLE IF NOT EXISTS `role` (
 INSERT INTO `role` (`id`, `name`, `pid`) VALUES
 (1, 'Super Administrator', 0),
 (2, 'Manager', 1),
-(3, 'Worker', 2),
-(4, 'Unvalidated', 4);
+(3, 'Cashier', 2),
+(4, 'Unverified', 4);
 
 -- --------------------------------------------------------
 
@@ -222,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `seat_id` int(11) NOT NULL,
   `price` double DEFAULT NULL,
   `paytype_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `tickets`
@@ -256,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `train` (
   `hours` double DEFAULT NULL,
   `gotime` time DEFAULT NULL,
   `train_type_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `train`
@@ -306,14 +308,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role_id` int(11) DEFAULT NULL,
   `tel` varchar(30) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `pwd`, `salt`, `fname`, `lname`, `role_id`, `tel`, `email`) VALUES
-(1, 'admin', 'bda1630a9b49f083d784709dad92ec60', 'oKm0lY2R', 'Marshall', 'Liu', 1, '12300444569', 'mars@gmail.com'),
+(1, 'admin', 'bda1630a9b49f083d784709dad92ec60', 'oKm0lY2R', 'Marshall', 'Liu', 1, '12300444567', 'mars@gmail.com'),
 (2, 'manager1', '978f145e82fee41e2bae6de5e97538f1', 'bxlP7a+C', 'Kev', 'He', 2, '12345', '12344@gmail.com'),
 (3, 'worker1', '50903350968fbfccb51515c226cf9e5c', '6KlBSuTL', 'Tob', 'Mao', 3, '123455', '1324@gmail.com'),
 (4, 'worker2', '019fd8e9f59638d77f78776c8f6d968d', '07tupg33', 'Tomas', 'Li', 3, '1', '1@e.com');
@@ -396,12 +398,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `access`
 --
 ALTER TABLE `access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `cariage`
 --
 ALTER TABLE `cariage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `city`
 --
@@ -411,7 +413,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `paytype`
 --
@@ -426,12 +428,12 @@ ALTER TABLE `seats_type`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `train`
 --
 ALTER TABLE `train`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `train_type`
 --
@@ -441,7 +443,7 @@ ALTER TABLE `train_type`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- 限制导出的表
 --

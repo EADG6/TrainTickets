@@ -41,6 +41,8 @@
 				include "app/customer_new.php";
 			}else if($action=='all'){
 				include "app/customer_all.php";
+			}else if($action=='report'){
+				include "app/customer_report.php";
 			}
 		}else if($page=='staff'){
 			if($action=='new'){

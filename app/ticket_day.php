@@ -5,7 +5,7 @@
 <div class="col-md-12">
 	<div class='col-md-3 form-group'>
 		<form method="post" id='dayquery'>
-			<input type='date' class="form-control" name='tdate' value="<?php echo isset($_POST['tdate'])?inputCheck($_POST['tdate']):'2017-05-07';?>" onchange="$('#dayquery').submit()">
+			<input type='date' class="form-control" name='tdate' value="<?php echo isset($_POST['tdate'])?inputCheck($_POST['tdate']):date('Y-m-d',time());?>" onchange="$('#dayquery').submit()">
 		</form>
 	</div>
 	<table class="table table-striped">
@@ -25,7 +25,7 @@
         </thead>
 		<tbody>
 		<?php
-			$date = isset($_POST['tdate'])?inputCheck($_POST['tdate']):'2017-05-07';
+			$date = isset($_POST['tdate'])?inputCheck($_POST['tdate']):date('Y-m-d',time());
 			$now = strtotime(date('Y-m-d',time()));
 			$sql_tkinfo = "SELECT tk.id,t.name AS train,ty.type,c1.city AS scity,c2.city AS ecity,tk.cariage_id,car.train_cariage_num,CONCAT(firstname,' ',lastname) AS realname,tk.seat_id,CASE WHEN tk.isstand=0 THEN stp.seats_level WHEN tk.isstand=1 THEN 'Stand' END AS seats_level,tk.godate,CONCAT (gotime,'-',DATE_FORMAT(timestampadd(hour,hours,gotime),'%T')) AS time,hours,stp.price*hours AS price FROM tickets AS tk 
 			INNER JOIN cariage AS car ON tk.cariage_id=car.id INNER JOIN train AS t ON car.train_id=t.id INNER JOIN train_type AS ty ON t.train_type_id=ty.id INNER JOIN city AS c1 ON start_city_id=c1.id INNER JOIN city AS c2 ON end_city_id=c2.id INNER JOIN customer AS cus ON tk.cus_id=cus.id INNER JOIN seats_type AS stp ON car.cariage_type_id=stp.id WHERE godate = '$date' ORDER BY id";
