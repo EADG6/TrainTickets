@@ -13,9 +13,9 @@
                 <th>Start Time</th>
                 <th>End Time</th>
                 <th>Hours</th>
-                <th>Seat Cariage (Capacity)</th>
-                <th>Hard Sleeper Cariage (Capacity)</th>
-                <th>Soft Sleeper Cariage (Capacity)</th>
+                <th>Seat Carriage (Capacity)</th>
+                <th>Hard Sleeper Carriage (Capacity)</th>
+                <th>Soft Sleeper Carriage (Capacity)</th>
                 <th>
 					Operation <a onclick="$('#helptip').toggle()" class="glyphicon glyphicon-question-sign icona"></a>
 				</th>
@@ -44,8 +44,8 @@
 						<td>".$carinfo['Hard Sleeper']."</td>
 						<td>".$carinfo['Soft Sleeper']."</td>";
 					echo"<td>
-							<a class='label label-primary' href='index.php?page=customer&action=new&edit=".$row_train['id']."'>E</a>						
-							<a class='label label-danger' onclick=\"if(confirm('Do you want to delete the user and its all tickets?')){location.href='index.php?page=customer&action=all&del=".$row_train['id']."'}\">X</a>
+							<a class='label label-primary' href='index.php?page=train&action=new&edit=".$row_train['id']."'>E</a>						
+							<a class='label label-danger' href='#modal-container-1' data-toggle='modal' onclick=$('[name=\"delid\"]').val(".$row_train['id'].")>X</a>	
 						</td>
 					</tr>";
 				}	
@@ -53,13 +53,48 @@
         </tbody>
     </table>
 </div>
+<!-- Delete Train Form -->
+			<div class="modal fade" id="modal-container-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h1 class="modal-title text-center" id='popFormLabel'>
+								Delete Train
+							</h1>
+						</div>
+						<div class="modal-body">	
+							<div class="alert alert-danger">
+								This operation will delete the train and its all carriages and tickets!
+							</div>
+							<form method='post'>
+								<div class="form-group">
+									<label>Please Verify Your Password...</label>
+									<input type='password' name='cfpwd' class="form-control" required/>
+									<kbd class='seepwd' onmousedown="seepwd('cfpwd')"><i class='fa fa-eye'></i></kbd>
+								</div>
+								<input type='hidden' name='delid'/>
+								<br/><button type='submit' class='btn btn-danger btn-block' style='padding-right:0;'/>Delete</button>
+							</form>
+						</div>
+					</div>	
+				</div>
+			</div>
 <?php
-	if(isset($_GET['del'])){
-		$delid = inputCheck($_GET['del']);
-		$sql_delcustk = "DELETE FROM tickets WHERE cus_id = '$delid'";
-		$sql_delcus = "DELETE FROM customer WHERE id = '$delid'";
-		$mysql->query($sql_delcustk);
-		$mysql->query($sql_delcus);
-		redirect('index.php?page=customer&action=all','Delete customer and its tickets successfully!');
+	if(isset($_POST['delid'])){
+		$pwdres = $mysql->fetch($mysql->query("SELECT pwd,salt FROM user WHERE id = {$_SESSION['userid']}"));
+		$inputpwd = MD5($_POST['cfpwd'].$pwdres['salt']);
+		if($inputpwd==$pwdres['pwd']){
+			$delid = inputCheck($_POST['delid']);
+			$sql_deltk = "DELETE FROM tickets WHERE cariage_id IN (SELECT id FROM cariage WHERE train_id = '$delid')";
+			$sql_delcar = "DELETE FROM cariage WHERE train_id = '$delid'";
+			$sql_deltrain = "DELETE FROM train WHERE id = '$delid'";
+			$mysql->query($sql_deltk);
+			$mysql->query($sql_delcar);
+			$mysql->query($sql_deltrain);
+			redirect('index.php?page=train&action=all','Delete train and its carriage and tickets successfully!');
+		}else{
+			echo "<script>alert('Wrong Password')</script>";
+		}
 	}
 ?>
