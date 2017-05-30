@@ -49,7 +49,7 @@
 				include "app/staff_role.php";
 			}
 		}else if($page=='profile'){
-			//include "app/profile.php";
+			include "app/profile.php";
 		}
 	}
 	include "inc/footer.php";
