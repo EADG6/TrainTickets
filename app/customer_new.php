@@ -44,27 +44,7 @@
 		<input type="hidden" name='editcusid'>
     </div>
 </form>
-<script>
-	function editcus(id){
-		$.ajax({
-			url:'ajax.php',
-			data:{"editcus":id},
-			success:function(data){
-				$('[name="fname"]').val(data.firstname)
-				$('[name="lname"]').val(data.lastname)
-				$('[name="birth"]').val(data.birthdate)
-				$('[name="tel"]').val(data.tel)
-				$('[name="idnum"]').val(data.IDcard)
-				$('[name="sex"]').val(data.sex)
-				$('[name="nplace"]').val(data.birthplace)
-				$('[name="new"]').attr('name','edit')
-				$('[name="editcusid"]').val(id)
-			},
-			type:'POST',
-			dataType:'json'
-		});
-	}
-</script>
+<script src='static/js/customer_new.js'></script>
 <?php
 	if(isset($_POST['fname'])){
 		$fname = inputCheck($_POST['fname']);
