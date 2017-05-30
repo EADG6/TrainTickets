@@ -70,6 +70,11 @@
 							<div class="panel-body">Role Management</div>
 						</a>
 					</div>
+					<div class="panel-heading" onclick="$('#dashboard')[0].click()">
+						<a class="panel-title collapsed icona" id="dashboard" href="index.php?page=dashboard">
+							Dashboard
+						</a>
+					</div>
 					<div class="panel-heading" onclick="$('#profile')[0].click()">
 						<a class="panel-title collapsed icona" id="profile" href="index.php?page=profile">
 							My Profile
@@ -94,7 +99,7 @@
 	if(isset($_GET['page'])){
 		$curpage = $_GET['page'];
 	}else{
-		$curpage = 'ticket';
+		$curpage = 'dashboard';
 	}
 	if(isset($_GET['action'])||$curpage=='ticket'){
 		echo "<script>setTimeout(function(){\$('#".$curpage."')[0].click()},500)</script>";
