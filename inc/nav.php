@@ -21,6 +21,9 @@
 						<a href="index.php?page=ticket&action=all" class="panel-legend icona">
 							<div class="panel-body">All Ticket</div>
 						</a>
+						<a href="index.php?page=ticket&action=day" class="panel-legend icona">
+							<div class="panel-body">Query Date</div>
+						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#train')[0].click()">
 						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="train" href="#panel-element-train">

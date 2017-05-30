@@ -95,5 +95,17 @@
 		$sql_cusinfo = "SELECT * FROM customer WHERE id = '$editcusid'";
 		$res_cusinfo = $mysql->fetch($mysql->query($sql_cusinfo));
 		echo json_encode($res_cusinfo);
+	/*Edit Train information*/
+	}else if(isset($_POST['edittrain'])){
+		$edittid = inputCheck($_POST['edittrain']);
+		$sql_traininfo = "SELECT * FROM train WHERE id = '$edittid'";
+		$res_traininfo = $mysql->fetch($mysql->query($sql_traininfo));
+		$sql_cars = "SELECT cariage_type_id AS id,COUNT(*) AS carnum FROM cariage WHERE train_id = '$edittid' GROUP BY cariage_type_id ORDER BY cariage_type_id";
+		$res_cars = $mysql->query($sql_cars);
+		$res_traininfo['cars'] = ['car2'=>0,'car4'=>0,'car5'=>0,'car6'=>0];
+		while($row_cars = $mysql->fetch($res_cars)){
+			$res_traininfo['cars']['car'.$row_cars['id']] = $row_cars['carnum'];
+		}
+		echo json_encode($res_traininfo);
 	}
 ?>

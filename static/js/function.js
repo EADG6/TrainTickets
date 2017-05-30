@@ -49,6 +49,20 @@
 		$('[name="'+elename+'"] option').attr('disabled',false)
 		$('[name="'+elename+'"] [value="'+ele.value+'"]').attr('disabled',true)
 		if($('[name="'+elename+'"]').val()==ele.value)$('[name="'+elename+'"]').val('')
-		trainTime()
-		countSeat()
+	}
+/* Delete ticket */
+	function delTk(id){
+		if(confirm("Do you want to delete the ticket?")){
+			$.ajax({
+				url:'ajax.php',
+				data:{"deltkid":id},
+				type:'POST',
+				success:function(data){
+					setTimeout(function(){$('#tk'+id).hide()},500)
+				},
+				beforeSend:function(){
+					$('#tk'+id).html("<th colspan=8><center><a class='fa fa-refresh fa-spin nodeco'></a></center></th>")
+				}
+			})
+		}	
 	}

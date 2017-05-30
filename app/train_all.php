@@ -6,7 +6,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-                <th>Trans</th>
+                <th>Train</th>
                 <th>Type</th>
                 <th>Departure</th>
                 <th>Destination</th>
