@@ -43,3 +43,12 @@
 			}
 		}
 	}
+/* Avoid same start/end city */
+	function selectCity(ele){
+		var elename=ele.name=='scity'?'ecity':'scity';
+		$('[name="'+elename+'"] option').attr('disabled',false)
+		$('[name="'+elename+'"] [value="'+ele.value+'"]').attr('disabled',true)
+		if($('[name="'+elename+'"]').val()==ele.value)$('[name="'+elename+'"]').val('')
+		trainTime()
+		countSeat()
+	}
