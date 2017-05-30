@@ -18,7 +18,7 @@
     </div>
         <div class="form-group col-md-6">
 			<label>Departure City:</label>
-			<select class="form-control" onchange='selectCity(this)' name="scity" required>
+			<select class="form-control" onchange='selectCity(this);trainTime();countSeat()' name="scity" required>
 				<option value=''>Choose City...</option>
 				<?php
 					$sql_allcity = "SELECT * FROM city";
@@ -32,7 +32,7 @@
 		</div>
 		<div class="form-group col-md-6">
 			<label>Destination City:</label>
-			<select class="form-control" onchange='selectCity(this)' name="ecity" required>
+			<select class="form-control" onchange='selectCity(this);trainTime();countSeat()' name="ecity" required>
 				<option value=''>Choose City...</option>
 				<?php
 					while($row_city = $mysql->fetch($res_city1)){
@@ -54,23 +54,25 @@
     </div>
     <div class="form-group col-md-6">
         <label>High Seat Carriage</label>
-        <input type="number" class="form-control" placeholder="Number of High Seat Carriage" name="hseatca"> 
+        <input type="number" class="form-control" placeholder="Number of High Seat Carriage" name="hseatca" min=0 max=10 id='car2'> 
     </div>
     <div class="form-group col-md-6">
         <label>Slow Seat Carriage</label>
-        <input type="number" class="form-control" placeholder="Number of Slow Seat Carriage" name="sseatca" disabled> 
+        <input type="number" class="form-control" placeholder="Number of Slow Seat Carriage" name="sseatca" min=0 max=10 id='car4' disabled> 
     </div>
     <div class="form-group col-md-6">
         <label>Hard Sleeper Carriage</label>
-        <input type="number" class="form-control " placeholder="Number of Hard Sleeper Carriage" name="hsleepca" disabled> 
+        <input type="number" class="form-control " placeholder="Number of Hard Sleeper Carriage" name="hsleepca" min=0 max=10 id='car5' disabled> 
     </div>
     <div class="form-group col-md-6">
         <label>Soft Sleeper Carriage</label>
-        <input type="number" class="form-control" placeholder="Number of Soft Sleeper Carriage" name="ssleepca" disabled> 
+        <input type="number" class="form-control" placeholder="Number of Soft Sleeper Carriage" name="ssleepca" min=0 max=10 id='car6' disabled> 
     </div>
-<div class="col-md-6 col-md-offset-3 topblank">
+	<div class="col-md-6 col-md-offset-3 topblank">
         <button type="submit" class="btn btn-primary btn-block" name='newtrain'>Submit</button>
-</div>
+		<input type="hidden" name='edittid'>
+		<input type="hidden" name='carsnums'>
+	</div>
 </form>
 <script>
 	function cartype(){
@@ -86,6 +88,31 @@
 			$('[name="ssleepca"]').attr('disabled',false);
 		}
 	}
+/* Edir Train */	
+	function edittrain(id){
+		$.ajax({
+			url:'ajax.php',
+			data:{"edittrain":id},
+			success:function(data){
+				$('[name="train_id"]').val(data.name)
+				$('[name="ttype"]').val(data.train_type_id)
+				$('[name="scity"]').val(data.start_city_id)
+				$('[name="ecity"]').val(data.end_city_id)
+				$('[name="stime"]').val(data.gotime)
+				$('[name="hours"]').val(data.hours)
+				$('[name="carsnums"]').val(data.cars.car2+','+data.cars.car4+','+data.cars.car5+','+data.cars.car6)
+				$('[name="newtrain"]').html('Edit')
+				$('[name="edittid"]').val(id)
+				$('#car2').val(data.cars.car2)
+				$('#car4').val(data.cars.car4)
+				$('#car5').val(data.cars.car5)
+				$('#car6').val(data.cars.car6)
+				cartype()
+			},
+			type:'POST',
+			dataType:'json'
+		});
+	}
 </script>
 <?php
     if(isset($_POST['newtrain'])){
@@ -99,29 +126,57 @@
             $sseatca = isset($_POST['sseatca'])?(int)$_POST['sseatca']:0;
             $hsleepca = isset($_POST['hsleepca'])?(int)$_POST['hsleepca']:0;
             $ssleepca = isset($_POST['ssleepca'])?(int)$_POST['ssleepca']:0;
+			$origcars = explode(',',$_POST['carsnums']);
 			if(!empty($hseatca+$sseatca+$hsleepca+$ssleepca)){	
-				$sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
-				$mysql->query($sql_newtrain);
-				$lid = mysql_insert_id();
-				if(!empty($hseatca)){
-					$sql_hseatca = "INSERT INTO cariage VALUES('','2','$lid','$hseatca')"; 
-					$mysql->query($sql_hseatca);
+				if(empty($_POST['edittid'])){
+					$sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
+					$mysql->query($sql_newtrain);
+					$tid = mysql_insert_id();
+					if(!empty($hseatca)){
+						$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
+						$mysql->query($sql_hseatca);
+					}
+					if(!empty($sseatca)){
+						$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
+						$mysql->query($sql_sseatca);
+					}
+					if(!empty($hsleepca)){
+						$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
+						$mysql->query($sql_hsleepca);
+					}
+					if(!empty($ssleepca)){
+						$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
+						$mysql->query($sql_ssleepca);
+					}
+					echo "<script>alert('Add New Train Successfully');location.href='index.php?page=train&action=all';</script>";
+				}else{
+					$tid = $_POST['edittid'];
+					$sql_updtrain = "UPDATE train SET name='$name', start_city_id='$start_city_id', end_city_id='$end_city_id', hours='$hours', gotime='$gotime', train_type_id='$train_type_id' WHERE id = $tid";
+					$mysql->query($sql_updtrain);
+					if($hseatca > $origcars[0]){
+						$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
+						$mysql->query($sql_hseatca);
+					}
+					if($sseatca > $origcars[1]){
+						$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
+						$mysql->query($sql_sseatca);
+					}
+					if($hsleepca > $origcars[2]){
+						$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
+						$mysql->query($sql_hsleepca);
+					}
+					if($ssleepca > $origcars[3]){
+						$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
+						$mysql->query($sql_ssleepca);
+					}
+					echo "<script>alert('Edit Train Successfully');location.href='index.php?page=train&action=all';</script>";
 				}
-				if(!empty($sseatca)){
-					$sql_sseatca = "INSERT INTO cariage VALUES('','4','$lid','$sseatca')"; 
-					$mysql->query($sql_sseatca);
-				}
-				if(!empty($hsleepca)){
-					$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$lid','$hsleepca')"; 
-					$mysql->query($sql_hsleepca);
-				}
-				if(!empty($ssleepca)){
-					$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$lid','$ssleepca')"; 
-					$mysql->query($sql_ssleepca);
-				}
-				echo "<script>alert('Add New Train Successfully');location.href='index.php?page=train&action=all';</script>"; 
 			}else{
 				echo "<script>alert('You must add one carriage at least')</script>";
 			}
-    }
+    }else if(isset($_GET['edit'])){
+		$editid = inputCheck($_GET['edit']);
+		echo "<script>edittrain('$editid')</script>";
+	}
+
 ?>

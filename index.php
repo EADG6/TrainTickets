@@ -27,6 +27,8 @@
 				include "app/ticket_new.php";
 			}else if($action=='all'){
 				include "app/ticket_all.php";
+			}else if($action=='day'){
+				include "app/ticket_day.php";
 			}
 		}else if($page=='train'){
 			if($action=='new'){
