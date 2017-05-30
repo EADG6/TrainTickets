@@ -17,7 +17,6 @@
 				?>
 			</select>
     </div>
-    <div class="form-group col-md-6">
         <div class="form-group col-md-6">
 			<label>Departure City:</label>
 			<select class="form-control" onchange='selectCity(this)' name="scity" required>
@@ -43,8 +42,6 @@
 				?>
 			</select>
 		</div>
-    </div>
-    <div class="form-group col-md-6">
         <div class="form-group col-md-6">
             <label>Start Time :</label>
             <input class="form-control" type="time" name="stime" required>
@@ -53,87 +50,31 @@
             <label>hours :</label>
             <input class="form-control" type="text" name="hours" required>
         </div>
-    </div>
     <div class="form-group col-md-12">
         <label class=>Seat Level :</label>
     </div>
-    <div class="form-group col-md-3">
-        <label>High Seat Cariage</label>
-            <select name="hseatca" class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-            </select>
+    <div class="form-group col-md-6">
+        <label class="my-4">High Seat Cariage</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Enter Number of High Seat Cariage" name="hseatca"> 
     </div>
-    <div class="form-group col-md-3">
-        <label>Slow Seat Cariage</label>
-            <select name="sseatca" class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-            </select>
+    <div class="form-group col-md-6">
+        <label class="my-4">Slow Seat Cariage</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Enter Number of Slow Seat Cariage" name="sseatca"> 
     </div>
-    <div class="form-group col-md-3">
-        <label>Hard Sleeper Cariage</label>
-        <select name="hsleepca" class="form-control">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-        </select>
+    <div class="form-group col-md-6">
+        <label class="my-4">Hard Sleeper Cariage</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Enter Number of Hard Sleeper Cariage" name="hsleepca"> 
     </div>
-    <div class="form-group col-md-3">
-        <label>Soft Sleeper Cariage</label>
-        <select name="ssleepca" class="form-control">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-        </select>
-    </div> 
-</div>
-<div class="col-md-12 center-block">
-    <div class="col-md-4" style="margin:0 auto;width:200px;">
-        <button href="#" class="btn btn-primary form-control">Update</button>
+    <div class="form-group col-md-6">
+        <label class="my-4">Soft Sleeper Cariage</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Enter Number of Soft Sleeper Cariage" name="ssleepca"> 
     </div>
+<div class="col-md-6 col-md-offset-3 topblank">
+        <button type="submit" class="btn btn-primary btn-block" name='newtrain'>Submit</button>
 </div>
 </form>
 <?php
-    if(isset($_POST['train_id'])){
+    if(isset($_POST['newtrain'])){
 			$name = $_POST['train_id'];
             $start_city_id = $_POST['scity'];
             $end_city_id = $_POST['ecity'];
