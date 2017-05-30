@@ -58,7 +58,7 @@
 		var sales = $("#tksalesChart");
 		var data_tksale =  {
 			datasets: [{
-				label: 'Tickets Sales Amount',
+				label: 'Tickets Sales Amount /100',
 				data: data_num,
 				fill: false,
 				backgroundColor: "rgba(255,99,132,0.2)",

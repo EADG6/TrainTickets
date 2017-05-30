@@ -110,11 +110,11 @@
 	/*Tickets Sales Diagram*/
 	}else if(isset($_POST['tksales'])){
 		$tksales = ['rev'=>[],'num'=>[]];
-		$sql_tksales = "SELECT pay_date,COUNT(*) AS sold,SUM(price) AS revenue FROM tickets GROUP BY pay_date";
+		$sql_tksales = "SELECT paydate,COUNT(*) AS sold,SUM(price) AS revenue FROM tickets GROUP BY paydate";
 		$res_tksales = $mysql->query($sql_tksales);
 		while($row_tksales = $mysql->fetch($res_tksales)){
-			array_push($tksales['rev'],['x'=>$row_tksales['pay_date'],'y'=>$row_tksales['revenue']]);
-			array_push($tksales['num'],['x'=>$row_tksales['pay_date'],'y'=>$row_tksales['sold']]);
+			array_push($tksales['rev'],['x'=>$row_tksales['paydate'],'y'=>$row_tksales['revenue']]);
+			array_push($tksales['num'],['x'=>$row_tksales['paydate'],'y'=>$row_tksales['sold']*100]);
 		}
 		echo json_encode($tksales);
 	}

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.0.2
+-- version 4.3.11
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: 2017-05-30 15:47:54
--- 服务器版本： 10.0.17-MariaDB
--- PHP Version: 5.5.30
+-- Host: 127.0.0.1
+-- Generation Time: 2017-05-30 16:59:17
+-- 服务器版本： 5.6.24
+-- PHP Version: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `train`
@@ -26,13 +26,13 @@ SET time_zone = "+00:00";
 -- 表的结构 `access`
 --
 
-CREATE TABLE `access` (
+CREATE TABLE IF NOT EXISTS `access` (
   `id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `page` varchar(20) DEFAULT NULL,
   `action` varchar(20) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `access`
@@ -60,12 +60,12 @@ INSERT INTO `access` (`id`, `name`, `page`, `action`, `role_id`) VALUES
 -- 表的结构 `cariage`
 --
 
-CREATE TABLE `cariage` (
+CREATE TABLE IF NOT EXISTS `cariage` (
   `id` int(11) NOT NULL,
   `cariage_type_id` int(11) DEFAULT NULL,
   `train_id` int(11) DEFAULT NULL,
   `train_cariage_num` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `cariage`
@@ -157,10 +157,10 @@ INSERT INTO `cariage` (`id`, `cariage_type_id`, `train_id`, `train_cariage_num`)
 -- 表的结构 `city`
 --
 
-CREATE TABLE `city` (
+CREATE TABLE IF NOT EXISTS `city` (
   `id` int(11) NOT NULL,
   `city` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `city`
@@ -178,7 +178,7 @@ INSERT INTO `city` (`id`, `city`) VALUES
 -- 表的结构 `customer`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
@@ -187,7 +187,7 @@ CREATE TABLE `customer` (
   `tel` varchar(50) DEFAULT NULL,
   `IDcard` int(11) DEFAULT NULL,
   `birthplace` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `customer`
@@ -205,10 +205,10 @@ INSERT INTO `customer` (`id`, `firstname`, `lastname`, `sex`, `birthdate`, `tel`
 -- 表的结构 `paytype`
 --
 
-CREATE TABLE `paytype` (
+CREATE TABLE IF NOT EXISTS `paytype` (
   `id` int(11) NOT NULL,
   `type` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `paytype`
@@ -226,7 +226,7 @@ INSERT INTO `paytype` (`id`, `type`) VALUES
 -- 表的结构 `role`
 --
 
-CREATE TABLE `role` (
+CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
   `pid` int(11) DEFAULT NULL
@@ -248,13 +248,13 @@ INSERT INTO `role` (`id`, `name`, `pid`) VALUES
 -- 表的结构 `seats_type`
 --
 
-CREATE TABLE `seats_type` (
+CREATE TABLE IF NOT EXISTS `seats_type` (
   `id` int(11) NOT NULL,
   `seats_level` varchar(20) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `train_type_id` int(11) DEFAULT NULL,
   `capacity` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `seats_type`
@@ -274,7 +274,7 @@ INSERT INTO `seats_type` (`id`, `seats_level`, `price`, `train_type_id`, `capaci
 -- 表的结构 `tickets`
 --
 
-CREATE TABLE `tickets` (
+CREATE TABLE IF NOT EXISTS `tickets` (
   `id` int(11) NOT NULL,
   `cus_id` int(11) NOT NULL,
   `isstand` tinyint(1) NOT NULL DEFAULT '0',
@@ -282,29 +282,31 @@ CREATE TABLE `tickets` (
   `cariage_id` int(11) NOT NULL,
   `seat_id` int(11) NOT NULL,
   `price` double DEFAULT NULL,
-  `paytype_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `paytype_id` int(11) DEFAULT NULL,
+  `paydate` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `tickets`
 --
 
-INSERT INTO `tickets` (`id`, `cus_id`, `isstand`, `godate`, `cariage_id`, `seat_id`, `price`, `paytype_id`) VALUES
-(1, 1, 0, '2017-05-07', 1, 1, 200, 1),
-(2, 2, 0, '2017-05-07', 1, 2, 200, 1),
-(5, 3, 1, '2017-05-07', 1, 1, 400, 1),
-(8, 2, 1, '2017-05-07', 1, 2, 400, 1),
-(10, 2, 1, '2017-05-31', 17, 3, 300, 1),
-(11, 3, 1, '2017-05-31', 17, 2, 300, 1),
-(12, 2, 0, '2017-05-20', 17, 1, 400, 1),
-(15, 3, 0, '2017-05-23', 9, 1, 160, 1),
-(16, 1, 0, '2017-05-31', 17, 1, 400, 1),
-(17, 2, 0, '2017-06-08', 19, 1, 1440, 1),
-(19, 3, 1, '2017-08-19', 13, 1, 600, 1),
-(20, 1, 1, '2017-08-26', 79, 1, 100, 1),
-(21, 3, 1, '2017-08-13', 93, 1, 240, 1),
-(22, 4, 0, '2017-09-16', 94, 1, 240, 1),
-(23, 4, 1, '2017-08-12', 45, 1, 80, 1);
+INSERT INTO `tickets` (`id`, `cus_id`, `isstand`, `godate`, `cariage_id`, `seat_id`, `price`, `paytype_id`, `paydate`) VALUES
+(1, 1, 0, '2017-05-07', 1, 1, 200, 1, '2017-05-07'),
+(2, 2, 0, '2017-05-07', 1, 2, 200, 1, '2017-05-07'),
+(5, 3, 1, '2017-05-07', 1, 1, 400, 1, '2017-05-07'),
+(8, 2, 1, '2017-05-07', 1, 2, 400, 1, '2017-05-07'),
+(10, 2, 1, '2017-05-31', 17, 3, 300, 3, '2017-05-20'),
+(11, 3, 1, '2017-05-31', 17, 2, 300, 3, '2017-05-20'),
+(12, 2, 0, '2017-05-20', 17, 1, 400, 3, '2017-05-20'),
+(15, 3, 0, '2017-05-23', 9, 1, 160, 1, '2017-05-23'),
+(16, 1, 0, '2017-05-31', 17, 1, 400, 2, '2017-05-24'),
+(17, 2, 0, '2017-06-08', 19, 1, 1440, 2, '2017-05-24'),
+(19, 3, 1, '2017-08-19', 13, 1, 600, 2, '2017-05-29'),
+(20, 1, 1, '2017-08-26', 79, 1, 100, 1, '2017-05-29'),
+(21, 3, 1, '2017-08-13', 93, 1, 240, 1, '2017-05-29'),
+(22, 4, 0, '2017-09-16', 94, 1, 240, 4, '2017-05-28'),
+(23, 4, 1, '2017-08-12', 45, 1, 80, 4, '2017-05-28'),
+(24, 1, 1, '2017-05-31', 45, 1, 80, 4, '2017-05-30');
 
 -- --------------------------------------------------------
 
@@ -312,7 +314,7 @@ INSERT INTO `tickets` (`id`, `cus_id`, `isstand`, `godate`, `cariage_id`, `seat_
 -- 表的结构 `train`
 --
 
-CREATE TABLE `train` (
+CREATE TABLE IF NOT EXISTS `train` (
   `id` int(11) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
   `start_city_id` int(11) DEFAULT NULL,
@@ -320,7 +322,7 @@ CREATE TABLE `train` (
   `hours` double DEFAULT NULL,
   `gotime` time DEFAULT NULL,
   `train_type_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `train`
@@ -357,10 +359,10 @@ INSERT INTO `train` (`id`, `name`, `start_city_id`, `end_city_id`, `hours`, `got
 -- 表的结构 `train_type`
 --
 
-CREATE TABLE `train_type` (
+CREATE TABLE IF NOT EXISTS `train_type` (
   `id` int(11) NOT NULL,
   `type` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `train_type`
@@ -376,7 +378,7 @@ INSERT INTO `train_type` (`id`, `type`) VALUES
 -- 表的结构 `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL,
   `username` varchar(20) DEFAULT NULL,
   `pwd` varchar(50) DEFAULT NULL,
@@ -386,7 +388,7 @@ CREATE TABLE `user` (
   `role_id` int(11) DEFAULT NULL,
   `tel` varchar(30) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- 转存表中的数据 `user`
@@ -406,15 +408,13 @@ INSERT INTO `user` (`id`, `username`, `pwd`, `salt`, `fname`, `lname`, `role_id`
 -- Indexes for table `access`
 --
 ALTER TABLE `access`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `role_id` (`role_id`);
 
 --
 -- Indexes for table `cariage`
 --
 ALTER TABLE `cariage`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cariage_type_id` (`cariage_type_id`),
-  ADD KEY `train_id` (`train_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `cariage_type_id` (`cariage_type_id`), ADD KEY `train_id` (`train_id`);
 
 --
 -- Indexes for table `city`
@@ -444,26 +444,19 @@ ALTER TABLE `role`
 -- Indexes for table `seats_type`
 --
 ALTER TABLE `seats_type`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `train_type_id` (`train_type_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `train_type_id` (`train_type_id`);
 
 --
 -- Indexes for table `tickets`
 --
 ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `isstand` (`isstand`,`godate`,`cariage_id`,`seat_id`),
-  ADD KEY `tickets_ibfk_1` (`cus_id`),
-  ADD KEY `tickets_ibfk_3` (`cariage_id`);
+  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `isstand` (`isstand`,`godate`,`cariage_id`,`seat_id`), ADD KEY `tickets_ibfk_1` (`cus_id`), ADD KEY `tickets_ibfk_3` (`cariage_id`), ADD KEY `paytype_id` (`paytype_id`);
 
 --
 -- Indexes for table `train`
 --
 ALTER TABLE `train`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `start_city_id` (`start_city_id`),
-  ADD KEY `end_city_id` (`end_city_id`),
-  ADD KEY `train_type_id` (`train_type_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `start_city_id` (`start_city_id`), ADD KEY `end_city_id` (`end_city_id`), ADD KEY `train_type_id` (`train_type_id`);
 
 --
 -- Indexes for table `train_type`
@@ -475,8 +468,7 @@ ALTER TABLE `train_type`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `role_id` (`role_id`);
+  ADD PRIMARY KEY (`id`), ADD KEY `role_id` (`role_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -486,89 +478,96 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `access`
 --
 ALTER TABLE `access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `cariage`
 --
 ALTER TABLE `cariage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `paytype`
 --
 ALTER TABLE `paytype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `seats_type`
 --
 ALTER TABLE `seats_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `train`
 --
 ALTER TABLE `train`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `train_type`
 --
 ALTER TABLE `train_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- 限制导出的表
 --
 
 --
+-- 限制表 `access`
+--
+ALTER TABLE `access`
+ADD CONSTRAINT `access_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+
+--
 -- 限制表 `cariage`
 --
 ALTER TABLE `cariage`
-  ADD CONSTRAINT `cariage_ibfk_1` FOREIGN KEY (`cariage_type_id`) REFERENCES `seats_type` (`id`),
-  ADD CONSTRAINT `cariage_ibfk_2` FOREIGN KEY (`train_id`) REFERENCES `train` (`id`);
+ADD CONSTRAINT `cariage_ibfk_1` FOREIGN KEY (`cariage_type_id`) REFERENCES `seats_type` (`id`),
+ADD CONSTRAINT `cariage_ibfk_2` FOREIGN KEY (`train_id`) REFERENCES `train` (`id`);
 
 --
 -- 限制表 `seats_type`
 --
 ALTER TABLE `seats_type`
-  ADD CONSTRAINT `seats_type_ibfk_1` FOREIGN KEY (`train_type_id`) REFERENCES `train_type` (`id`);
+ADD CONSTRAINT `seats_type_ibfk_1` FOREIGN KEY (`train_type_id`) REFERENCES `train_type` (`id`);
 
 --
 -- 限制表 `tickets`
 --
 ALTER TABLE `tickets`
-  ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`cus_id`) REFERENCES `customer` (`id`),
-  ADD CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`cariage_id`) REFERENCES `cariage` (`id`);
+ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`cus_id`) REFERENCES `customer` (`id`),
+ADD CONSTRAINT `tickets_ibfk_3` FOREIGN KEY (`cariage_id`) REFERENCES `cariage` (`id`),
+ADD CONSTRAINT `tickets_ibfk_4` FOREIGN KEY (`paytype_id`) REFERENCES `paytype` (`id`);
 
 --
 -- 限制表 `train`
 --
 ALTER TABLE `train`
-  ADD CONSTRAINT `train_ibfk_1` FOREIGN KEY (`start_city_id`) REFERENCES `city` (`id`),
-  ADD CONSTRAINT `train_ibfk_2` FOREIGN KEY (`end_city_id`) REFERENCES `city` (`id`),
-  ADD CONSTRAINT `train_ibfk_3` FOREIGN KEY (`train_type_id`) REFERENCES `train_type` (`id`);
+ADD CONSTRAINT `train_ibfk_1` FOREIGN KEY (`start_city_id`) REFERENCES `city` (`id`),
+ADD CONSTRAINT `train_ibfk_2` FOREIGN KEY (`end_city_id`) REFERENCES `city` (`id`),
+ADD CONSTRAINT `train_ibfk_3` FOREIGN KEY (`train_type_id`) REFERENCES `train_type` (`id`);
 
 --
 -- 限制表 `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
+ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
