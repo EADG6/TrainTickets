@@ -98,7 +98,7 @@
 				$('[name="ttype"]').val(data.train_type_id)
 				$('[name="scity"]').val(data.start_city_id)
 				$('[name="ecity"]').val(data.end_city_id)
-				$('[name="stime"]').val(data.gotime)
+				$('[name="stime"]').val(data.gotime.substr(0,5))
 				$('[name="hours"]').val(data.hours)
 				$('[name="carsnums"]').val(data.cars.car2+','+data.cars.car4+','+data.cars.car5+','+data.cars.car6)
 				$('[name="newtrain"]').html('Edit')
@@ -127,14 +127,14 @@
             $hsleepca = isset($_POST['hsleepca'])?(int)$_POST['hsleepca']:0;
             $ssleepca = isset($_POST['ssleepca'])?(int)$_POST['ssleepca']:0;
 			$origcars = explode(',',$_POST['carsnums']);
-			$sql_querytname = "SELECT id FROM train WHERE name = '$name'";
+			$sql_querytname = "SELECT * FROM train WHERE name = '$name'";
             $res_tname = $mysql->query($sql_querytname);
             $tnamerows= mysql_num_rows($res_tname);
-	        if($tnamerows==1){
-				echo"<script>alert('Train ID in Used');location.href='index.php?page=train&action=new';</script>"; 
-			}else{
-				if(!empty($hseatca+$sseatca+$hsleepca+$ssleepca)){	
-					if(empty($_POST['edittid'])){
+			if(!empty($hseatca+$sseatca+$hsleepca+$ssleepca)){	
+				if(empty($_POST['edittid'])){
+					if($tnamerows == 1){
+						echo"<script>alert('Train ID in Used');location.href='index.php?page=train&action=new';</script>"; 
+					}else{
 						$sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
 						$mysql->query($sql_newtrain);
 						$tid = mysql_insert_id();
@@ -155,31 +155,31 @@
 							$mysql->query($sql_ssleepca);
 						}
 						echo "<script>alert('Add New Train Successfully');location.href='index.php?page=train&action=all';</script>";
-					}else{
-						$tid = $_POST['edittid'];
-						$sql_updtrain = "UPDATE train SET name='$name', start_city_id='$start_city_id', end_city_id='$end_city_id', hours='$hours', gotime='$gotime', train_type_id='$train_type_id' WHERE id = $tid";
-						$mysql->query($sql_updtrain);
-						if($hseatca > $origcars[0]){
-							$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
-							$mysql->query($sql_hseatca);
-						}
-						if($sseatca > $origcars[1]){
-							$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
-							$mysql->query($sql_sseatca);
-						}
-						if($hsleepca > $origcars[2]){
-							$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
-							$mysql->query($sql_hsleepca);
-						}
-						if($ssleepca > $origcars[3]){
-							$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
-							$mysql->query($sql_ssleepca);
-						}
-						echo "<script>alert('Edit Train Successfully');location.href='index.php?page=train&action=all';</script>";
 					}
 				}else{
-					echo "<script>alert('You must add one carriage at least')</script>";
+					$tid = $_POST['edittid'];
+					$sql_updtrain = "UPDATE train SET name='$name', start_city_id='$start_city_id', end_city_id='$end_city_id', hours='$hours', gotime='$gotime', train_type_id='$train_type_id' WHERE id = $tid";
+					$mysql->query($sql_updtrain);
+					if($hseatca > $origcars[0]){
+						$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
+						$mysql->query($sql_hseatca);
+					}
+					if($sseatca > $origcars[1]){
+						$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
+						$mysql->query($sql_sseatca);
+					}
+					if($hsleepca > $origcars[2]){
+						$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
+						$mysql->query($sql_hsleepca);
+					}
+					if($ssleepca > $origcars[3]){
+						$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
+						$mysql->query($sql_ssleepca);
+					}
+					echo "<script>alert('Edit Train Successfully');location.href='index.php?page=train&action=all';</script>";
 				}
+			}else{
+				echo "<script>alert('You must add one carriage at least')</script>";
 			}
     }else if(isset($_GET['edit'])){
 		$editid = inputCheck($_GET['edit']);
