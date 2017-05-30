@@ -122,96 +122,67 @@
             $gotime = inputCheck($_POST['stime']);
             $hours = inputCheck($_POST['hours']);
             $train_type_id = inputCheck($_POST['ttype']);
-<<<<<<< HEAD
-            $hseatca = inputCheck($_POST['hseatca']);
-            $sseatca = inputCheck($_POST['sseatca']);
-            $hsleepca = inputCheck($_POST['hsleepca']);
-            $ssleepca = inputCheck($_POST['ssleepca']);
-            $sql = "SELECT * FROM train WHERE name = '$name'";
-            $query = $mysql->query("$sql");
-            $rows = mysql_num_rows($query);
-	        if ($rows ==1){
-			 echo"<script>alert('Train ID in Using');location.href='index.php?page=train&action=new';</script>"; 
-		  }else{
-                $sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
-                $mysql->query($sql_newtrain);
-                $lid = mysql_insert_id();
-            if(!empty($hseatca)){
-                $sql_hseatca = "INSERT INTO cariage VALUES('','2','$lid','$hseatca')"; 
-                $mysql->query($sql_hseatca);
-            }
-            if(!empty($sseatca)){
-                $sql_sseatca = "INSERT INTO cariage VALUES('','4','$lid','$sseatca')"; 
-                $mysql->query($sql_sseatca);
-            }
-            if(!empty($hsleepca)){
-                $sql_hsleepca = "INSERT INTO cariage VALUES('','5','$lid','$hsleepca')"; 
-                $mysql->query($sql_hsleepca);
-            }
-            if(!empty($ssleepca)){
-                $sql_ssleepca = "INSERT INTO cariage VALUES('','6','$lid','$ssleepca')"; 
-                $mysql->query($sql_ssleepca);
-            }
-            echo"<script>alert('Add New Train Successful');location.href='index.php?page=train&action=all';</script>"; 
-            }
-    }
-=======
             $hseatca = isset($_POST['hseatca'])?(int)$_POST['hseatca']:0;
             $sseatca = isset($_POST['sseatca'])?(int)$_POST['sseatca']:0;
             $hsleepca = isset($_POST['hsleepca'])?(int)$_POST['hsleepca']:0;
             $ssleepca = isset($_POST['ssleepca'])?(int)$_POST['ssleepca']:0;
 			$origcars = explode(',',$_POST['carsnums']);
-			if(!empty($hseatca+$sseatca+$hsleepca+$ssleepca)){	
-				if(empty($_POST['edittid'])){
-					$sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
-					$mysql->query($sql_newtrain);
-					$tid = mysql_insert_id();
-					if(!empty($hseatca)){
-						$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
-						$mysql->query($sql_hseatca);
-					}
-					if(!empty($sseatca)){
-						$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
-						$mysql->query($sql_sseatca);
-					}
-					if(!empty($hsleepca)){
-						$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
-						$mysql->query($sql_hsleepca);
-					}
-					if(!empty($ssleepca)){
-						$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
-						$mysql->query($sql_ssleepca);
-					}
-					echo "<script>alert('Add New Train Successfully');location.href='index.php?page=train&action=all';</script>";
-				}else{
-					$tid = $_POST['edittid'];
-					$sql_updtrain = "UPDATE train SET name='$name', start_city_id='$start_city_id', end_city_id='$end_city_id', hours='$hours', gotime='$gotime', train_type_id='$train_type_id' WHERE id = $tid";
-					$mysql->query($sql_updtrain);
-					if($hseatca > $origcars[0]){
-						$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
-						$mysql->query($sql_hseatca);
-					}
-					if($sseatca > $origcars[1]){
-						$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
-						$mysql->query($sql_sseatca);
-					}
-					if($hsleepca > $origcars[2]){
-						$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
-						$mysql->query($sql_hsleepca);
-					}
-					if($ssleepca > $origcars[3]){
-						$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
-						$mysql->query($sql_ssleepca);
-					}
-					echo "<script>alert('Edit Train Successfully');location.href='index.php?page=train&action=all';</script>";
-				}
+			$sql_querytname = "SELECT id FROM train WHERE name = '$name'";
+            $res_tname = $mysql->query($sql_querytname);
+            $tnamerows= mysql_num_rows($res_tname);
+	        if($tnamerows==1){
+				echo"<script>alert('Train ID in Used');location.href='index.php?page=train&action=new';</script>"; 
 			}else{
-				echo "<script>alert('You must add one carriage at least')</script>";
+				if(!empty($hseatca+$sseatca+$hsleepca+$ssleepca)){	
+					if(empty($_POST['edittid'])){
+						$sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
+						$mysql->query($sql_newtrain);
+						$tid = mysql_insert_id();
+						if(!empty($hseatca)){
+							$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
+							$mysql->query($sql_hseatca);
+						}
+						if(!empty($sseatca)){
+							$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
+							$mysql->query($sql_sseatca);
+						}
+						if(!empty($hsleepca)){
+							$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
+							$mysql->query($sql_hsleepca);
+						}
+						if(!empty($ssleepca)){
+							$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
+							$mysql->query($sql_ssleepca);
+						}
+						echo "<script>alert('Add New Train Successfully');location.href='index.php?page=train&action=all';</script>";
+					}else{
+						$tid = $_POST['edittid'];
+						$sql_updtrain = "UPDATE train SET name='$name', start_city_id='$start_city_id', end_city_id='$end_city_id', hours='$hours', gotime='$gotime', train_type_id='$train_type_id' WHERE id = $tid";
+						$mysql->query($sql_updtrain);
+						if($hseatca > $origcars[0]){
+							$sql_hseatca = "INSERT INTO cariage VALUES('','2','$tid','$hseatca')"; 
+							$mysql->query($sql_hseatca);
+						}
+						if($sseatca > $origcars[1]){
+							$sql_sseatca = "INSERT INTO cariage VALUES('','4','$tid','$sseatca')"; 
+							$mysql->query($sql_sseatca);
+						}
+						if($hsleepca > $origcars[2]){
+							$sql_hsleepca = "INSERT INTO cariage VALUES('','5','$tid','$hsleepca')"; 
+							$mysql->query($sql_hsleepca);
+						}
+						if($ssleepca > $origcars[3]){
+							$sql_ssleepca = "INSERT INTO cariage VALUES('','6','$tid','$ssleepca')"; 
+							$mysql->query($sql_ssleepca);
+						}
+						echo "<script>alert('Edit Train Successfully');location.href='index.php?page=train&action=all';</script>";
+					}
+				}else{
+					echo "<script>alert('You must add one carriage at least')</script>";
+				}
 			}
     }else if(isset($_GET['edit'])){
 		$editid = inputCheck($_GET['edit']);
 		echo "<script>edittrain('$editid')</script>";
 	}
-
->>>>>>> origin/dev
 ?>
