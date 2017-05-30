@@ -85,9 +85,15 @@
             $sseatca = inputCheck($_POST['sseatca']);
             $hsleepca = inputCheck($_POST['hsleepca']);
             $ssleepca = inputCheck($_POST['ssleepca']);
-            $sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
-            $mysql->query($sql_newtrain);
-            $lid = mysql_insert_id();
+            $sql = "SELECT * FROM train WHERE name = '$name'";
+            $query = $mysql->query("$sql");
+            $rows = mysql_num_rows($query);
+	        if ($rows ==1){
+			 echo"<script>alert('Train ID in Using');location.href='index.php?page=train&action=new';</script>"; 
+		  }else{
+                $sql_newtrain = "INSERT INTO train VALUES('','$name','$start_city_id','$end_city_id','$gotime','$hours','$train_type_id')"; 
+                $mysql->query($sql_newtrain);
+                $lid = mysql_insert_id();
             if(!empty($hseatca)){
                 $sql_hseatca = "INSERT INTO cariage VALUES('','2','$lid','$hseatca')"; 
                 $mysql->query($sql_hseatca);
@@ -105,5 +111,6 @@
                 $mysql->query($sql_ssleepca);
             }
             echo"<script>alert('Add New Train Successful');location.href='index.php?page=train&action=all';</script>"; 
+            }
     }
 ?>
