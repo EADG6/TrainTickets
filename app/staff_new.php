@@ -8,7 +8,7 @@
 			<label>Role</label>
 			<select type="text" class="form-control" name='role' required>
 				<option value="">Select a Role...</option>
-				<?php
+				<?php // sele1 role from role table and while loop
 					$sql_roles = "SELECT * FROM role WHERE id !=1";
 					$res_roles = $mysql->query($sql_roles);
 					while($row_roles=$mysql->fetch($res_roles)){
@@ -51,7 +51,7 @@
     </div>
 </form>
 <script src='static/js/staff_new.js'></script>
-<?php
+<?php  // add new staff information to user table
 	if(isset($_POST['newstaff'])){
 		$username = inputCheck($_POST['username']);
 		$role = inputCheck($_POST['role']);
