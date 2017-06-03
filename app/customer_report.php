@@ -17,7 +17,7 @@
               </tr>
         </thead>
 		<tbody>
-			<?php
+			<?php  // select cutomer name freom customer table and count whole payment
 				$date = isset($_POST['tdate'])?$_POST['tdate'].'-01':date('Y-m-d',time());
 				$sql_cus = "SELECT c.id,CONCAT(firstname,' ',lastname) AS realname,SUM(t.price) AS payment FROM customer AS c INNER JOIN tickets AS t ON c.id=t.cus_id WHERE MONTH(t.godate)=Month('$date') AND YEAR(t.godate)=YEAR('$date') GROUP BY t.cus_id ORDER BY payment DESC";
 				$res_cus = $mysql->query($sql_cus);

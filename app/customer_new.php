@@ -45,8 +45,8 @@
     </div>
 </form>
 <script src='static/js/customer_new.js'></script>
-<?php
-	if(isset($_POST['fname'])){
+<?php	
+	if(isset($_POST['fname'])){   //insert customer information to customer table 
 		$fname = inputCheck($_POST['fname']);
 		$lname = inputCheck($_POST['lname']);
 		$birth = inputCheck($_POST['birth']);
@@ -58,7 +58,7 @@
 			$sql_newCustomer = "INSERT customer VALUES('','$fname','$lname','$sex','$birth','$tel','$idnum','$nplace')";
 			$mysql->query($sql_newCustomer);
 			$act = "Create New";
-		}else if(isset($_POST['edit'])){
+		}else if(isset($_POST['edit'])){  // updata customer information in customer table
 			$editid = inputCheck($_POST['editcusid']);
 			$sql_editcus = "UPDATE customer SET firstname='$fname',lastname='$lname',sex='$sex',birthdate='$birth',tel='$tel',IDcard='$idnum',birthplace='$nplace' WHERE id='$editid'";
 			$mysql->query($sql_editcus);

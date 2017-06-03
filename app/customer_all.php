@@ -1,6 +1,6 @@
 ﻿<div class='helptip' id='helptip' style="display:none;">
 	<a class='label label-primary'>E</a> Edit /
-	<a class='label label-danger'>X</a> Delete /
+	<a class='label label-danger'>X</a> Delete /   
 </div>
 <div class="col-md-12">
 	<table class="table table-striped">
@@ -19,7 +19,7 @@
               </tr>
         </thead>
 		<tbody>
-			<?php
+			<?php  // Select information from customer table, and use while loop to output customer information
 				$sql_cus = "SELECT id,CONCAT(firstname,' ',lastname) AS realname,CASE WHEN sex=1 THEN 'Male' WHEN sex=2 THEN 'Female' WHEN sex=0 THEN 'Unknown' END AS sex,year(from_days(datediff(now(),birthdate))) AS age,tel,IDcard,birthplace FROM customer";
 				$res_cus = $mysql->query($sql_cus);
 				while($row_cus = $mysql->fetch($res_cus)){
@@ -41,7 +41,7 @@
         </tbody>
     </table>
 </div>
-<?php
+<?php	// delete the customer and tickets
 	if(isset($_GET['del'])){
 		$delid = inputCheck($_GET['del']);
 		$sql_delcustk = "DELETE FROM tickets WHERE cus_id = '$delid'";

@@ -18,7 +18,7 @@
               </tr>
         </thead>
 		<tbody>
-			<?php
+			<?php // select staff infotmation from user and use while loop
 				$sql_stf = "SELECT u.id,CONCAT(fname,' ',lname) AS realname,username,tel,email,r.name AS role FROM user AS u INNER JOIN role AS r ON u.role_id=r.id";
 				$res_stf = $mysql->query($sql_stf);
 				while($row_stf = $mysql->fetch($res_stf)){
@@ -38,7 +38,7 @@
         </tbody>
     </table>
 </div>
-<?php
+<?php // delete the sfaff
 	if(isset($_GET['del'])){
 		$deluserid = inputCheck($_GET['del']);
 		$sql_deluser = "DELETE FROM user WHERE id = '$deluserid'";

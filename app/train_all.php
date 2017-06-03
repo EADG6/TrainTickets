@@ -60,7 +60,7 @@
 						<div class="modal-header">
 							 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 							<h1 class="modal-title text-center" id='popFormLabel'>
-								Delete Train
+								Delete the Train
 							</h1>
 						</div>
 						<div class="modal-body">	
@@ -69,7 +69,7 @@
 							</div>
 							<form method='post'>
 								<div class="form-group">
-									<label>Please Verify Your Password...</label>
+									<label>Please Verify Your Password.....</label>
 									<input type='password' name='cfpwd' class="form-control" required/>
 									<kbd class='seepwd' onmousedown="seepwd('cfpwd')"><i class='fa fa-eye'></i></kbd>
 								</div>
