@@ -95,5 +95,27 @@
 		$sql_cusinfo = "SELECT * FROM customer WHERE id = '$editcusid'";
 		$res_cusinfo = $mysql->fetch($mysql->query($sql_cusinfo));
 		echo json_encode($res_cusinfo);
+	/*Edit Train information*/
+	}else if(isset($_POST['edittrain'])){
+		$edittid = inputCheck($_POST['edittrain']);
+		$sql_traininfo = "SELECT * FROM train WHERE id = '$edittid'";
+		$res_traininfo = $mysql->fetch($mysql->query($sql_traininfo));
+		$sql_cars = "SELECT cariage_type_id AS id,COUNT(*) AS carnum FROM cariage WHERE train_id = '$edittid' GROUP BY cariage_type_id ORDER BY cariage_type_id";
+		$res_cars = $mysql->query($sql_cars);
+		$res_traininfo['cars'] = ['car2'=>0,'car4'=>0,'car5'=>0,'car6'=>0];
+		while($row_cars = $mysql->fetch($res_cars)){
+			$res_traininfo['cars']['car'.$row_cars['id']] = $row_cars['carnum'];
+		}
+		echo json_encode($res_traininfo);
+	/*Tickets Sales Diagram*/
+	}else if(isset($_POST['tksales'])){
+		$tksales = ['rev'=>[],'num'=>[]];
+		$sql_tksales = "SELECT paydate,COUNT(*) AS sold,SUM(price) AS revenue FROM tickets GROUP BY paydate";
+		$res_tksales = $mysql->query($sql_tksales);
+		while($row_tksales = $mysql->fetch($res_tksales)){
+			array_push($tksales['rev'],['x'=>$row_tksales['paydate'],'y'=>$row_tksales['revenue']]);
+			array_push($tksales['num'],['x'=>$row_tksales['paydate'],'y'=>$row_tksales['sold']*100]);
+		}
+		echo json_encode($tksales);
 	}
 ?>

@@ -17,6 +17,7 @@
 			while($row_trains = $mysql->fetch($res_trains)){	
 				$sql_date = "SELECT godate,COUNT(*) AS num FROM tickets AS t INNER JOIN cariage AS c ON t.cariage_id=c.id WHERE train_id=".$row_trains['id']." GROUP BY godate";
 				$res_date = $mysql->query($sql_date);
+				$totcap = $mysql->oneQuery("SELECT SUM(cap) AS totcap FROM (SELECT COUNT(*)*s.capacity AS cap FROM cariage AS c INNER JOIN seats_type AS s ON c.cariage_type_id = s.id WHERE train_id = ".$row_trains['id']." GROUP BY cariage_type_id ORDER BY s.id) AS temp");
 				$num = mysql_num_rows($res_date);
 		?>
 			<div class="panel-heading" onclick="$('#ticket<?php echo $row_trains['id'];?>')[0].click()">
@@ -34,7 +35,7 @@
 				while($row_date = $mysql->fetch($res_date)){
 			?>
 				<div>
-					<a id="modal-ticket" href="#modal-container-ticket" onclick='ticketinfo(this,"<?php echo $row_trains['id'].'","'.$row_trains['type']?>")' role="button" class="btn" data-toggle="modal"><?php echo $row_date['godate'];?></a>
+					<a id="modal-ticket" href="#modal-container-ticket" onclick='ticketinfo(this,"<?php echo $row_trains['id'].'","'.$row_trains['type'].'","'.$row_date['num'].'","'.$totcap?>")' role="button" class="btn" data-toggle="modal"><?php echo $row_date['godate'];?></a>
 				</div>									
 			<?php
 				}
@@ -46,42 +47,7 @@
 		</div>
 	</div>
 </div>
-<script>
-	/* Check all tickes of a train in a day*/
-	function ticketinfo(ele,tid,ttp){
-		var tdate = $(ele).html()
-		$("#tid_label").html(tid);
-		$("#ttp_label").html(ttp);
-		$("#tdate_label").html(tdate);
-		$.ajax({
-			url:'ajax.php',
-			data:{"tid":tid,"tdate":tdate},
-			type:'POST',
-			dataType:'json',
-			success:function(data){
-				setTimeout(function(){$('#tickets_info').html(data.htmls)},200)
-			},
-			beforeSend:function(){
-				$('#tickets_info').html("<th colspan=8><center><a class='fa fa-refresh fa-3x fa-spin nodeco'></a></center></th>")
-			}
-		})
-	}
-	function delTk(id){
-		if(confirm("Do you want to delete the ticket?")){
-			$.ajax({
-				url:'ajax.php',
-				data:{"deltkid":id},
-				type:'POST',
-				success:function(data){
-					setTimeout(function(){$('#tk'+id).hide()},500)
-				},
-				beforeSend:function(){
-					$('#tk'+id).html("<th colspan=8><center><a class='fa fa-refresh fa-spin nodeco'></a></center></th>")
-				}
-			})
-		}	
-	}
-</script>
+<script src='static/js/ticket_all.js'></script>
 <div class="modal fadein" id="modal-container-ticket">
 	<div class="modal-dialog" style='width:80%'>
 		<div class="modal-content">
@@ -97,10 +63,11 @@
 						<th colspan='9'>
 							<span class="col-md-2">Train:<span id='tid_label'></span></span>
 							<span class="col-md-2">Type:<span id='ttp_label'></span></span>
-							<span class="col-md-8">Departure Date:<span id='tdate_label'></span></span>
+							<span class="col-md-4">Departure Date:<span id='tdate_label'></span></span>
+							<span class="col-md-4">Capacity Remaining:<span id='caprem_label'></span></span>
 						</th>
 							<tr>
-								<th>Trian</th>
+								<th>Train</th>
 								<th>Time</th>
 								<th>Hours</th>
 								<th>Price</th>

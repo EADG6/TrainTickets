@@ -44,29 +44,9 @@
 		<input type="hidden" name='editcusid'>
     </div>
 </form>
-<script>
-	function editcus(id){
-		$.ajax({
-			url:'ajax.php',
-			data:{"editcus":id},
-			success:function(data){
-				$('[name="fname"]').val(data.firstname)
-				$('[name="lname"]').val(data.lastname)
-				$('[name="birth"]').val(data.birthdate)
-				$('[name="tel"]').val(data.tel)
-				$('[name="idnum"]').val(data.IDcard)
-				$('[name="sex"]').val(data.sex)
-				$('[name="nplace"]').val(data.birthplace)
-				$('[name="new"]').attr('name','edit')
-				$('[name="editcusid"]').val(id)
-			},
-			type:'POST',
-			dataType:'json'
-		});
-	}
-</script>
-<?php
-	if(isset($_POST['fname'])){
+<script src='static/js/customer_new.js'></script>
+<?php	
+	if(isset($_POST['fname'])){   //insert customer information to customer table 
 		$fname = inputCheck($_POST['fname']);
 		$lname = inputCheck($_POST['lname']);
 		$birth = inputCheck($_POST['birth']);
@@ -78,7 +58,7 @@
 			$sql_newCustomer = "INSERT customer VALUES('','$fname','$lname','$sex','$birth','$tel','$idnum','$nplace')";
 			$mysql->query($sql_newCustomer);
 			$act = "Create New";
-		}else if(isset($_POST['edit'])){
+		}else if(isset($_POST['edit'])){  // updata customer information in customer table
 			$editid = inputCheck($_POST['editcusid']);
 			$sql_editcus = "UPDATE customer SET firstname='$fname',lastname='$lname',sex='$sex',birthdate='$birth',tel='$tel',IDcard='$idnum',birthplace='$nplace' WHERE id='$editid'";
 			$mysql->query($sql_editcus);

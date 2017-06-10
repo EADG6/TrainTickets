@@ -21,6 +21,9 @@
 						<a href="index.php?page=ticket&action=all" class="panel-legend icona">
 							<div class="panel-body">All Ticket</div>
 						</a>
+						<a href="index.php?page=ticket&action=day" class="panel-legend icona">
+							<div class="panel-body">Query Date</div>
+						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#train')[0].click()">
 						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="train" href="#panel-element-train">
@@ -47,6 +50,9 @@
 						<a href="index.php?page=customer&action=all" class="panel-legend icona">
 							<div class="panel-body">Edit Customer</div>
 						</a>
+						<a href="index.php?page=customer&action=report" class="panel-legend icona">
+							<div class="panel-body">Customer Report</div>
+						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#staff')[0].click()">
 						<a class="panel-title collapsed icona" data-toggle="collapse" data-parent="#panel-leftmenu" id="staff" href="#panel-element-staff">
@@ -62,6 +68,11 @@
 						</a>
 						<a href="index.php?page=staff&action=role" class="panel-legend icona">
 							<div class="panel-body">Role Management</div>
+						</a>
+					</div>
+					<div class="panel-heading" onclick="$('#dashboard')[0].click()">
+						<a class="panel-title collapsed icona" id="dashboard" href="index.php?page=dashboard">
+							Dashboard
 						</a>
 					</div>
 					<div class="panel-heading" onclick="$('#profile')[0].click()">
@@ -88,7 +99,7 @@
 	if(isset($_GET['page'])){
 		$curpage = $_GET['page'];
 	}else{
-		$curpage = 'ticket';
+		$curpage = 'dashboard';
 	}
 	if(isset($_GET['action'])||$curpage=='ticket'){
 		echo "<script>setTimeout(function(){\$('#".$curpage."')[0].click()},500)</script>";

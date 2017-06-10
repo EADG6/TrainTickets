@@ -148,7 +148,7 @@
 			$cariage_id = $cariages[$n-1]['id'];
 			$cariage_num = $cariages[$n-1]['car_num'];
 			if(isset($_POST['newtk'])){
-				$sql_newTicket = "INSERT tickets VALUES('',$cusid,$isstand,'$tdate',$cariage_id,$newid,$price,$paytype)";
+				$sql_newTicket = "INSERT tickets VALUES('',$cusid,$isstand,'$tdate',$cariage_id,$newid,$price,$paytype,NOW())";
 				$mysql->query($sql_newTicket);
 				$act = 'Create';
 			}else if(isset($_POST['editTk'])){
